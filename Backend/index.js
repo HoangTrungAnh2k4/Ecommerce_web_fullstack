@@ -1,14 +1,16 @@
-const express = require("express");
+const express = require('express');
+
+const routes = require('./src/routes/index');
 
 const app = express();
 
-const hostname = "localhost";
+const hostname = 'localhost';
 const port = 3000;
 
-app.get("/", function (req, res) {
-  res.send("Hello World");
-});
+app.use(express.json());
+
+routes(app);
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${port}/`);
 });

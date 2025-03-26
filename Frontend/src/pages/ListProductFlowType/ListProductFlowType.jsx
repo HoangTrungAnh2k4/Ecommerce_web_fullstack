@@ -5,8 +5,13 @@ import ItemCard from '../../components/Item.card/Item.card';
 import pc from '../../assets/images/PC/pc1.jpg';
 import vgaSlide from '../../assets/images/slider/vga.webp';
 
+
 function ListProductFlowType() {
     const { id } = useParams();
+
+    const handleChange = (value) => {
+        console.log(`selected ${value}`);
+    };
 
     const data = [
         {
@@ -35,8 +40,8 @@ function ListProductFlowType() {
                 <h3 className="text-center text-3xl font-semibold text-white">TOP 10 SẢN PHẨM</h3>
                 <div className="mt-6 flex gap-6">
                     {Array.from({ length: 5 }).map((_, index) => (
-                        <div className="bg-white" key={index}>
                             <ItemCard
+                                key={index}
                                 item={{
                                     image: pc,
                                     bestSale: true,
@@ -47,7 +52,6 @@ function ListProductFlowType() {
                                     countSold: '20',
                                 }}
                             />
-                        </div>
                     ))}
                 </div>
             </div>
@@ -68,13 +72,34 @@ function ListProductFlowType() {
                 <div className="flex p-4">
                     <p className="mr-6 w-fit flex-shrink-0 text-sm font-semibold">Chọn theo tiêu chí:</p>
                     <ul className="flex flex-wrap gap-4">
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">1 triệu - 4 triệu</li>
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">5 triệu - 9 triệu</li>
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">10 triệu - 15 triệu</li>
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">16 triệu - 20 triệu</li>
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">21 triệu - 30 triệu</li>
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">1 triệu - 4 triệu</li>
-                        <li className="rounded-lg border bg-[#f8f8f8] px-2 py-1 text-sm">5 triệu - 9 triệu</li>
+                        <select
+                            className="rounded-md border outline-none cursor-pointer bg-[#f8f8f8] px-2 py-1  text-sm">
+                            <option value="defaul" disabled >Thương hiệu</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                        <select
+                            className="rounded-md border outline-none cursor-pointer bg-[#f8f8f8] px-2 py-1  text-sm">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                        <select
+                            className="rounded-md border outline-none cursor-pointer bg-[#f8f8f8] px-2 py-1  text-sm">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                        <select
+                            className="rounded-md border outline-none cursor-pointer bg-[#f8f8f8] px-2 py-1  text-sm">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
                     </ul>
                 </div>
             </div>

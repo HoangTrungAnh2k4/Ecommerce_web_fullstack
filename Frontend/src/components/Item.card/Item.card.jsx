@@ -8,7 +8,7 @@ function ItemCard({ item }) {
     return (
         <div
             onClick={() => navigate('/detail')}
-            className="card w-56 cursor-pointer overflow-hidden rounded-md border p-2 px-3 shadow-md transition-all hover:-translate-y-2"
+            className="card w-56 cursor-pointer bg-white overflow-hidden rounded-md border p-2 px-3 shadow-md transition-all hover:-translate-y-2"
         >
             <img src={item.image} alt={item.name} />
 
