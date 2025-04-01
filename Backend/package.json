@@ -4,13 +4,15 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon --env-file=.env --watch --experimental-json-modules index.js"
+        "dev": "node --env-file=.env --watch --experimental-json-modules index.js"
     },
     "author": "",
     "license": "ISC",
     "description": "",
     "dependencies": {
         "@eslint/js": "^9.22.0",
+        "bcryptjs": "^3.0.2",
+        "cors": "^2.8.5",
         "eslint": "^9.22.0",
         "eslint-config-prettier": "^10.1.1",
         "express": "^4.21.2",

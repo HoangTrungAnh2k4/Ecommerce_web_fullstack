@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import routes from './routes';
 import PrimaryLayout from './components/layout/PrimaryLayout';
+import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
                     );
                 })}
             </Routes>
+            <ToastContainer />
         </BrowserRouter>
     </StrictMode>,
 );

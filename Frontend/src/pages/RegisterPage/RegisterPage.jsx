@@ -6,6 +6,16 @@ import { FaFacebook } from 'react-icons/fa';
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
 
 function temp() {
+    const handleRegister = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        const name = formData.get('name');
+        const phoneNumber = formData.get('phoneNumber');
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const confirmPassword = formData.get('confirmPassword');
+    };
     return (
         <div className="justify-items-center">
             <div className="mt-12 w-[600px]">
@@ -32,7 +42,7 @@ function temp() {
                 </div>
 
                 {/* form input */}
-                <form className="mt-8">
+                <form onSubmit={handleRegister} className="mt-8">
                     <div className="group relative z-0 mb-6 w-full">
                         <input
                             type="email"
@@ -113,11 +123,14 @@ function temp() {
                             Nhập lại mật khẩu
                         </label>
                     </div>
-                </form>
 
-                <button className="mt-10 w-full rounded-md bg-primary py-3 text-lg font-semibold text-white">
-                    Đăng ký
-                </button>
+                    <button
+                        type="submit"
+                        className="mt-10 w-full rounded-md bg-primary py-3 text-lg font-semibold text-white"
+                    >
+                        Đăng ký
+                    </button>
+                </form>
 
                 <div className="mt-8 flex items-center justify-center">
                     <p className="text-textColor2">Bạn đã có tài khoản?</p>

@@ -8,13 +8,13 @@ function ItemCard({ item }) {
     return (
         <div
             onClick={() => navigate('/detail')}
-            className="card w-56 cursor-pointer bg-white overflow-hidden rounded-md border p-2 px-3 shadow-md transition-all hover:-translate-y-2"
+            className="card w-56 cursor-pointer select-none rounded-md border bg-white p-2 px-3 shadow-md"
         >
-            <img src={item.image} alt={item.name} />
+            <img src={item.image} alt={item.name} draggable="false" className="transition-all hover:-translate-y-2" />
 
             {item.bestSale && <img src={bestSale} alt="" className="w-[70px]" />}
             <div className="card-body mt-2">
-                <h2 className="line-clamp-3">{item.name}</h2>
+                <h2 className="line-clamp-3 hover:text-blue-600">{item.name}</h2>
 
                 <div className="mt-4 flex items-center gap-4">
                     <p className="text-sm text-textColor2 line-through">{item.oldPrice}</p>

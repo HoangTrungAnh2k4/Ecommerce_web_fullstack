@@ -1,37 +1,30 @@
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import ItemCard from '../Item.card/Item.card';
 
-import slider1 from '../../assets/images/slider/slide1.webp';
+import 'swiper/css';
 
-function Slider() {
-    const responsive = {
-        superLargeDesktop: {
-            // the naming can be any, depends on you.
-            breakpoint: { max: 4000, min: 3000 },
-            items: 5,
-        },
-        desktop: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 2,
-        },
-    };
+import pc from '../../assets/images/PC/pc1.jpg';
 
+function Slider({ list = [] }) {
     return (
-        <div className="w-full">
-            <Carousel
-                responsive={responsive}
-                className="py-2"
-                autoPlay={true}
-                autoPlaySpeed={3000}
-                customTransition="transform 1000ms ease-in-out"
-            >
-                {Array.from({ length: 12 }).map((_, index) => (
-                    <div key={index} className="mx-2">
-                        <img src={slider1} alt="slider1" className="h-full w-full object-cover" />
-                    </div>
+        <Swiper spaceBetween={20} slidesPerView={5}>
+            {list &&
+                list.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <ItemCard
+                            item={{
+                                image: pc,
+                                bestSale: true,
+                                name: 'Màn hình TUF Gaming VG249Q3A (24 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)',
+                                oldPrice: '20.000.000đ',
+                                newPrice: '18.000.000đ',
+                                discount: '-10%',
+                                countSold: '20',
+                            }}
+                        />
+                    </SwiperSlide>
                 ))}
-            </Carousel>
-        </div>
+        </Swiper>
     );
 }
 
