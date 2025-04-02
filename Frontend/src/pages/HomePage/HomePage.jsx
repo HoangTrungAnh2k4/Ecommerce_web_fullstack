@@ -13,7 +13,7 @@ function HomePage() {
         const fetchData = async () => {
             try {
                 const response = await getListBestSeller({ type: 'pc' });
-                console.log('Best seller products:', response);
+                console.log(response);
             } catch (error) {
                 console.error('Error fetching best seller products:', error);
             }
