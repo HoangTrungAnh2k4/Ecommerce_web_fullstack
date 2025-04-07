@@ -1,7 +1,11 @@
 const userRoutes = require('./userRoutes');
+const authRoutes = require('./authRoutes');
+
+const auth = require('../middlewares/auth');
 
 const routes = (app) => {
-    app.use('/user/api', userRoutes);
+    app.use('/auth/api', authRoutes);
+    app.use('/user/api', auth, userRoutes);
 };
 
 module.exports = routes;

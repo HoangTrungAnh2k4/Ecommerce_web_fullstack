@@ -1,20 +1,38 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaEye } from 'react-icons/fa';
 
+import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
+import { authLoginAPI } from '../../api/authAPI';
 
 function LoginPage() {
-    const handleLogin = (e) => {
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
         const userNumber = formData.get('username');
         const password = formData.get('password');
 
-        console.log(userNumber, password);
+        try {
+            const res = await authLoginAPI(userNumber, password);
+
+            localStorage.setItem('access_token', res.data.access_token);
+
+            toast.success('Đăng nhập thành công');
+            navigate('/');
+        } catch (error) {
+            console.error('Login error: ', error);
+            if (error.response) {
+                toast.error(error.response.data.message);
+            } else if (error.request) {
+                toast.error('Không thể kết nối đến máy chủ');
+            } else console.log('Error', error.message);
+        }
     };
 
     useEffect(() => {}, []);
