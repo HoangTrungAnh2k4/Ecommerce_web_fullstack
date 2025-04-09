@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { FaArrowTrendUp, FaArrowTrendDown } from 'react-icons/fa6';
 
-import ItemCard from '../../components/Item.card/Item.card';
+import ItemCard from '../../components/ui/Item.card';
 import pc from '../../assets/images/PC/pc1.jpg';
 import vgaSlide from '../../assets/images/slider/vga.webp';
 

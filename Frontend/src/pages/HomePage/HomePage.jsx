@@ -1,21 +1,26 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
-import Slider from '../../components/Slider/Slider';
+import Slider from '../../components/ui/Slider';
 import Category from './Category';
 import Banner from './Banner';
 import { getListBestSellerAPI } from '../../api/userAPI';
 
+import { AuthContext } from './../../components/hooks/authContext';
+
 const list = new Array(10).fill(0);
 
 function HomePage() {
+    const data = useContext(AuthContext);
+    console.log(data);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await getListBestSellerAPI('cpu');
                 console.log(response.data);
             } catch (error) {
-                console.error('Error fetching best seller products:', error);
+                console.error(error);
             }
         };
         fetchData();

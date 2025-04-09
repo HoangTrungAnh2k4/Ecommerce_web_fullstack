@@ -2,7 +2,7 @@ const avatr = 'https://nguyencongpc.vn/media/product/250-27134-gigabyte-z890-aor
 
 function Cart() {
     return (
-        <div className="absolute right-0 z-[100] -mt-2 hidden w-[360px] animate-fade-up rounded-lg border bg-white p-3 shadow shadow-gray-400 animate-duration-500 group-hover:block">
+        <div className="absolute right-0 -mt-2 hidden w-[400px] animate-fade-up rounded-lg border bg-white p-3 shadow animate-duration-500 group-hover:block">
             <ul className="h-[300px] overflow-y-auto pr-2">
                 <li className="flex gap-4 border-b border-gray-300 py-2">
                     <img src={avatr} alt="" className="size-[70px] rounded-lg object-cover object-center" />
@@ -60,9 +60,10 @@ function Cart() {
                     <p className="text-sm text-redColor">(4 sản phẩm)</p>
                     <p className="font-semibold text-redColor">72.000.000đ</p>
                 </div>
+
                 <a
                     href="/checkout"
-                    className="mt-4 block w-full rounded-lg bg-primary py-2 text-center font-semibold text-white transition-all duration-200 hover:scale-95"
+                    className="mx-4 mt-6 block rounded-lg bg-primary from-primary to-second px-5 py-2.5 text-center text-white hover:bg-gradient-to-tr"
                 >
                     Thanh toán
                 </a>

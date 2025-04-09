@@ -4,17 +4,19 @@ import 'swiper/css';
 
 import banner from '../../assets/images/slider/vga.webp';
 
-function Slider({ list = [] }) {
+function Banner({ list = [] }) {
     return (
-        <Swiper spaceBetween={20} slidesPerView={2}>
-            {list &&
-                list.map((item, index) => (
-                    <SwiperSlide key={index}>
-                        <img src={banner} alt="" className="" />
-                    </SwiperSlide>
-                ))}
-        </Swiper>
+        <div className="relative z-0">
+            <Swiper spaceBetween={20} slidesPerView={2}>
+                {list &&
+                    list.map((item, index) => (
+                        <SwiperSlide key={index}>
+                            <img src={banner} alt="" className="" />
+                        </SwiperSlide>
+                    ))}
+            </Swiper>
+        </div>
     );
 }
 
-export default Slider;
+export default Banner;

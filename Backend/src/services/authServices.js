@@ -28,7 +28,7 @@ const authServices = {
             // Thành công
             return {
                 status: 200,
-                data: 'Đăng ký thành công',
+                message: 'Đăng ký thành công',
             };
         } catch (error) {
             console.error('Database query error:', error);
@@ -55,6 +55,8 @@ const authServices = {
                 return { status: 401, message: 'Invalid phoneNumber or password' };
             }
 
+            const [userName] = await pool.query('select name from user where id = ?', [user.user_id]);
+
             const payload = { phoneNumber };
             const access_token = jwt.sign(payload, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_EXPIRE,
@@ -63,17 +65,16 @@ const authServices = {
             return {
                 status: 200,
                 data: {
-                    message: access_token,
+                    access_token,
                     user: {
                         phoneNumber: user.phoneNumber,
+                        userName: userName[0].name,
                     },
                 },
             };
         } catch (error) {
             console.error('Database query error:', error);
-            if (error.code === 'ER_DUP_ENTRY') {
-                return { status: 400, message: 'Số điện thoại này đã được đăng ký. Vui lòng dùng số khác.' };
-            }
+
             return { status: 500, message: 'Internal Server Error' };
         }
     },

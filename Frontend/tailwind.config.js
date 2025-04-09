@@ -6,13 +6,20 @@ export default {
     content: ['./src/**/*.{html,js,jsx}'],
     theme: {
         extend: {
+            transitionProperty: {
+                all: 'all',
+            },
             colors: {
                 primary: '#04293A',
-                second: '#A6ACBE',
+                second: '#4e8298',
                 textColor1: '#3a3a3a',
                 textColor2: '#575757',
                 background: '#e2e2e2',
                 redColor: '#e31223',
+            },
+            boxShadow: {
+                'custom-soft': '0 2px 10px rgba(4, 41, 58, 0.2)',
+                'custom-strong': '0 10px 25px rgba(0, 0, 0, 0.3)',
             },
         },
     },

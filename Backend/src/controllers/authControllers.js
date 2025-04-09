@@ -4,7 +4,7 @@ const authControllers = {
     register: async (req, res) => {
         try {
             const result = await authServices.register(req.body);
-            res.status(result.status).json(result.data);
+            res.status(result.status).json(result.message || result.data);
         } catch (err) {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
@@ -15,7 +15,7 @@ const authControllers = {
 
         try {
             const result = await authServices.login(phoneNumber, password);
-            res.status(result.status).json(result.data);
+            res.status(result.status).json(result.message || result.data);
         } catch (err) {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
