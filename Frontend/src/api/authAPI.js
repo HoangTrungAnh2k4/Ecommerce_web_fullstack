@@ -12,3 +12,9 @@ export const authLoginAPI = async (phoneNumber, password) => {
 
     return instance.post(URL_API, data);
 };
+
+export const authRegisterAPI = async (data) => {
+    const URL_API = `${AUTH_URL}/register`;
+
+    return instance.post(URL_API, data);
+};

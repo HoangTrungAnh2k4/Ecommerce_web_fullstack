@@ -9,8 +9,9 @@ create table
         id int primary key auto_increment,
         name varchar(255) not null,
         email varchar(255) not null,
-        address varchar(255) not null,
-        phoneNumber varchar(255) not null unique
+        address varchar(255),
+        phoneNumber varchar(255) not null unique,
+        role enum ('admin', 'user') not null DEFAULT 'user'
     );
 
 create table
@@ -25,14 +26,14 @@ create table
     equipment (
         id int primary key auto_increment,
         type varchar(255) not null,
-        name varchar(255) not null,
+        name varchar(255) not null unique,
         price int not null,
-        discount int check (
+        discount int not null check (
             discount >= 0
-            and discount <= 10
+            and discount <= 100
         ),
-        quantity int not null check (quantity >= 0),
-        unique (type, name)
+        sold_quantity int not null check (sold_quantity >= 0),
+        best_seller boolean not null default false
     );
 
 create table
@@ -44,6 +45,7 @@ create table
         ),
         comment varchar(255),
         user_id int not null,
+        user_name varchar(255) not null,
         equipment_id int not null,
         foreign key (user_id) references user (id) on delete cascade,
         foreign key (equipment_id) references equipment (id) on delete cascade
@@ -66,155 +68,226 @@ create table
         foreign key (equipment_id) references equipment (id) on delete cascade
     );
 
-insert into
-    equipment (type, name, price, discount, quantity)
-values
+create table
+    image (
+        id int primary key auto_increment,
+        url varchar(255) not null,
+        equipment_id int not null,
+        foreign key (equipment_id) references equipment (id) on delete cascade
+    );
+
+INSERT INTO
+    equipment (
+        type,
+        name,
+        price,
+        discount,
+        sold_quantity,
+        best_seller
+    )
+VALUES
+    -- PC Type (5 items)
     (
         'pc',
-        '[Tặng màn hình] Bộ PC Gaming I5 14600KF / RAM 16G / VGA RX 6700 XT 12G',
-        500,
-        10,
-        25
+        'Bộ PC Gaming Intel Core i5-12400F/RTX 4060/16GB RAM',
+        18990000,
+        0,
+        150,
+        true
     ),
     (
         'pc',
-        'Bộ PC Gaming 05 (i5 13400/ B760M /RAM 16GB/ SSD 500GB/ RTX 4060/ 700W)',
-        500,
-        10,
-        25
+        'Bộ PC Workstation Xeon E5-2678/64GB RAM/Quadro RTX 4000',
+        35990000,
+        0,
+        75,
+        false
     ),
     (
         'pc',
-        'Bộ PC NC Gaming 08 (I5 12400F/ 16GB RAM/ RTX 4060 OC)',
-        500,
-        10,
-        25
+        'Bộ PC AMD Ryzen 7 5700X/RX 6700 XT/32GB RAM',
+        22990000,
+        0,
+        120,
+        true
     ),
     (
-        'gpu',
-        'Card màn hình Gigabyte RTX 3060 12GB GDDR6 Gaming OC V2 (GV-N3060GAMING OC-12GD)',
-        500,
-        10,
-        25
+        'pc',
+        'Bộ PC Mini ITX Intel Core i3-12100/16GB RAM',
+        8990000,
+        0,
+        200,
+        false
     ),
     (
-        'gpu',
-        'Card Màn Hình Colorful iGame GeForce RTX 3060 Ultra White OC 12G-V',
-        500,
-        10,
-        25
+        'pc',
+        'Bộ PC High-End Intel Core i9-13900K/RTX 4090/64GB RAM',
+        65990000,
+        0,
+        50,
+        true
     ),
+    -- CPU Type (5 items)
     (
-        'gpu',
-        'Card Màn Hình Asus DUAL RX 6600 8GB V3',
-        500,
-        10,
-        25
+        'cpu',
+        'Intel Core i9-13900K (3.0GHz Up To 5.8GHz, 24 Cores/32 Threads)',
+        12990000,
+        0,
+        300,
+        true
     ),
     (
         'cpu',
-        'CPU Intel Core i5-12400F Tray NEW (Up to 4.4Ghz, 6 nhân 12 luồng, 18MB Cache, 65W) - Socket Intel LGA 1700)',
-        500,
-        10,
-        25
+        'AMD Ryzen 9 7950X (4.5GHz Up To 5.7GHz, 16 Cores/32 Threads)',
+        14990000,
+        0,
+        250,
+        true
     ),
     (
         'cpu',
-        'CPU Intel Core i5 14600K (Up 5.30 GHz, 14 Nhân 20 Luồng, 24MB Cache, Raptor Lake Refresh)',
+        'Intel Core i5-12400F (2.5GHz Up To 4.4GHz, 6 Cores/12 Threads)',
+        4590000,
+        0,
         500,
-        10,
-        25
+        false
     ),
     (
         'cpu',
-        'CPU AMD Ryzen 5 4600G (3.7GHz Boost 4.2GHz / 6 nhân 12 luồng / 11MB / AM4)',
-        500,
-        10,
-        25
+        'AMD Ryzen 5 5600X (3.7GHz Up To 4.6GHz, 6 Cores/12 Threads)',
+        4990000,
+        0,
+        450,
+        false
     ),
     (
-        'main',
-        'Mainboard ASRock Z790 PG Lightning Wifi D5',
-        500,
-        10,
-        25
+        'cpu',
+        'Intel Xeon E5-2678 v3 (2.5GHz, 12 Cores/24 Threads)',
+        3490000,
+        0,
+        150,
+        false
+    ),
+    -- GPU Type (5 items)
+    (
+        'gpu',
+        'MSI GeForce RTX 4090 GAMING X TRIO 24G',
+        45990000,
+        0,
+        80,
+        true
     ),
     (
-        'main',
-        'Mainboard Asus PRIME Z790M PLUS CSM DDR5',
-        500,
-        10,
-        25
+        'gpu',
+        'ASUS TUF Gaming Radeon RX 7900 XTX OC Edition 24GB',
+        32990000,
+        0,
+        120,
+        true
     ),
     (
-        'main',
-        'Mainboard MSI B760M GAMING PLUS WIFI DDR4',
-        500,
-        10,
-        25
+        'gpu',
+        'Gigabyte GeForce RTX 4060 Ti EAGLE OC 8G',
+        12990000,
+        0,
+        300,
+        false
     ),
     (
-        'monitor',
-        'Màn hình Asus VA24DQLB (23.8 inch FHD IPS 75Hz)',
-        500,
-        10,
-        25
+        'gpu',
+        'ASUS Dual GeForce RTX 3060 Ti OC Edition 8GB GDDR6',
+        8990000,
+        0,
+        250,
+        false
     ),
     (
-        'monitor',
-        'Màn hình Philips 24M1N3200ZA/74 (24 inch/ FHD/ IPS/ 165Hz/ 1ms/ G-sync)',
-        500,
-        10,
-        25
+        'gpu',
+        'Sapphire Pulse Radeon RX 6600 8GB GDDR6',
+        5990000,
+        0,
+        350,
+        false
     ),
+    -- SSD Type (5 items)
     (
-        'monitor',
-        'Màn Hình ASUS VA27EHF (27inch/ FullHD/ IPS/ 10,
-        250Hz/ 1Ms)',
-        500,
-        10,
-        25
-    ),
-    (
-        'laptop',
-        'Laptop HP Gaming Victus 15-fb2063dx (AMD RYZEN 5 7535HS, 8GB, SSD 512GB, AMD Radeon RX 6550M, 15.6'' Full HD, IPS, 144Hz-MICA SILVER) - NK BH tại NC',
-        500,
-        10,
-        25
-    ),
-    (
-        'laptop',
-        'Laptop Gigabyte G5 KF-E3VN333SH (i5 12500H/ 8GB RAM/ 512GB SSD/ 15.6″ FHD 144Hz/ RTX 4060 8GB/ Black/ Win11/ 2Yrs)',
-        500,
-        10,
-        25
-    ),
-    (
-        'laptop',
-        'Laptop GIGABYTE G5 MF5-52VN383SH (Intel Core i5-13500H, 8GB, 512GB, RTX 4050, 15.6inch, FHD, Win 11, Đen)',
-        500,
-        10,
-        25
+        'ssd',
+        'Samsung 980 PRO 1TB PCIe Gen4 NVMe M.2 SSD',
+        3490000,
+        0,
+        600,
+        true
     ),
     (
         'ssd',
-        'Ổ cứng HDD Western Caviar Blue 1TB 7200Rpm, SATA3 6Gb/s, 64MB Cache',
-        500,
-        10,
-        25
+        'WD Black SN850X 2TB PCIe Gen4 NVMe M.2 SSD',
+        5990000,
+        0,
+        400,
+        true
     ),
     (
         'ssd',
-        'Ổ Cứng SSD Samsung 980 500GB (310,
-        250 MB/s, 2600 MB/s, M.2 PCIe, 2280, Gen 3x4, MLC)',
+        'Crucial P5 Plus 1TB PCIe Gen4 NVMe M.2 SSD',
+        2790000,
+        0,
         500,
-        10,
-        25
+        false
     ),
     (
         'ssd',
-        'Ổ cứng SSD Kingston KC3000 512GB NVMe M.2 2280 PCIe Gen 4x4 (Đọc 7000MB/s, Ghi 3900MB/s)-(SKC3000S/512G)',
+        'Kingston NV2 1TB PCIe Gen4 NVMe M.2 SSD',
+        1890000,
+        0,
+        700,
+        false
+    ),
+    (
+        'ssd',
+        'Samsung 870 EVO 1TB SATA 2.5-inch SSD',
+        2290000,
+        0,
+        550,
+        false
+    ),
+    -- Mainboard Type (5 items)
+    (
+        'main',
+        'ASUS ROG STRIX Z790-E GAMING WIFI',
+        8990000,
+        0,
+        200,
+        true
+    ),
+    (
+        'main',
+        'MSI MAG B650 TOMAHAWK WIFI',
+        5990000,
+        0,
+        300,
+        true
+    ),
+    (
+        'main',
+        'Gigabyte B660M AORUS PRO AX DDR4',
+        4290000,
+        0,
+        350,
+        false
+    ),
+    (
+        'main',
+        'ASUS TUF GAMING B550-PLUS WIFI II',
+        3990000,
+        0,
+        400,
+        false
+    ),
+    (
+        'main',
+        'MSI PRO H610M-B DDR4',
+        1990000,
+        0,
         500,
-        10,
-        25
+        false
     );

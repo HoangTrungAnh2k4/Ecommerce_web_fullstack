@@ -6,25 +6,45 @@ import Category from './Category';
 import Banner from './Banner';
 import { getListBestSellerAPI } from '../../api/userAPI';
 
-import { AuthContext } from './../../components/hooks/authContext';
-
 const list = new Array(10).fill(0);
 
 function HomePage() {
-    const data = useContext(AuthContext);
-    console.log(data);
+    const [listCPU, setListCPU] = useState([]);
+    const [listGPU, setListGPU] = useState([]);
+    const [listMainboard, setListMainboard] = useState([]);
+    const [listSSD, setListSSD] = useState([]);
+    const [listMonitor, setListMonitor] = useState([]);
+    const [listLaptop, setListLaptop] = useState([]);
+    const [listPC, setListPC] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchListBestSeller = async () => {
             try {
-                const response = await getListBestSellerAPI('cpu');
-                console.log(response.data);
+                const [cpuRes, gpuRes, mainboardRes, ssdRes, monitorRes, laptopRes, pcRes] = await Promise.allSettled([
+                    getListBestSellerAPI('cpu'),
+                    getListBestSellerAPI('gpu'),
+                    getListBestSellerAPI('mainboard'),
+                    getListBestSellerAPI('ssd'),
+                    getListBestSellerAPI('monitor'),
+                    getListBestSellerAPI('laptop'),
+                    getListBestSellerAPI('pc'),
+                ]);
+
+                if (cpuRes.status === 'fulfilled') setListCPU(cpuRes.value.data);
+                if (gpuRes.status === 'fulfilled') setListGPU(gpuRes.value.data);
+                if (mainboardRes.status === 'fulfilled') setListMainboard(mainboardRes.value.data);
+                if (ssdRes.status === 'fulfilled') setListSSD(ssdRes.value.data);
+                if (monitorRes.status === 'fulfilled') setListMonitor(monitorRes.value.data);
+                if (laptopRes.status === 'fulfilled') setListLaptop(laptopRes.value.data);
+                if (pcRes.status === 'fulfilled') setListPC(pcRes.value.data);
             } catch (error) {
                 console.error(error);
             }
         };
-        fetchData();
+        fetchListBestSeller();
     }, []);
+
+    console.log('listCPU', listCPU);
 
     return (
         <div className="container mx-auto">
@@ -43,7 +63,7 @@ function HomePage() {
                     Xem tất cả
                 </Link>
             </div>
-            <Slider list={list} />
+            <Slider list={listPC} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
                 <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
@@ -53,7 +73,7 @@ function HomePage() {
                     Xem tất cả
                 </Link>
             </div>
-            <Slider list={list} />
+            <Slider list={listCPU} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
                 <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
@@ -63,7 +83,7 @@ function HomePage() {
                     Xem tất cả
                 </Link>
             </div>
-            <Slider list={list} />
+            <Slider list={listGPU} />
         </div>
     );
 }

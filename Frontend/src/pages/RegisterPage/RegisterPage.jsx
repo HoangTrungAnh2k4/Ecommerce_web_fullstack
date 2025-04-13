@@ -1,21 +1,68 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
 
-function temp() {
-    const handleRegister = (e) => {
+import { authRegisterAPI } from '../../api/authAPI';
+import { toast } from 'react-toastify';
+
+function RegisterPage() {
+    const navigate = useNavigate();
+
+    const handleRegister = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-        const name = formData.get('name');
+        const name = formData.get('userName');
         const phoneNumber = formData.get('phoneNumber');
         const email = formData.get('email');
         const password = formData.get('password');
         const confirmPassword = formData.get('confirmPassword');
+
+        if (!name || !phoneNumber || !email || !password || !confirmPassword) {
+            toast.error('Vui lòng điền đầy đủ thông tin!');
+            return;
+        }
+
+        if (phoneNumber.length < 10) {
+            toast.error('Số điện thoại không hợp lệ!');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            toast.error('Mật khẩu không khớp!');
+            return;
+        }
+
+        const data = {
+            name,
+            phoneNumber,
+            email,
+            password,
+            confirmPassword,
+            role: 'user',
+        };
+
+        try {
+            const response = await authRegisterAPI(data);
+
+            if (response.status === 200) {
+                toast.success('Đăng ký thành công!');
+                setTimeout(() => {
+                    navigate('/login');
+                }, 1500);
+            }
+        } catch (error) {
+            if (error.status === 400) {
+                toast.error('Số điện thoại đã tồn tại!');
+            } else {
+                toast.error('Đăng ký thất bại!');
+            }
+        }
     };
+
     return (
         <div className="justify-items-center">
             <div className="mt-12 w-[600px]">
@@ -45,15 +92,15 @@ function temp() {
                 <form onSubmit={handleRegister} className="mt-8">
                     <div className="group relative z-0 mb-6 w-full">
                         <input
-                            type="email"
-                            name="floating_email"
-                            id="floating_email"
+                            type="text"
+                            name="userName"
+                            id="userName"
                             className="peer block w-full appearance-none border-0 border-b border-gray-300 bg-transparent px-0 py-2.5 text-gray-900 outline-none"
                             placeholder=" "
                             required
                         />
                         <label
-                            htmlFor="floating_email"
+                            htmlFor="userName"
                             className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-gray-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400"
                         >
                             Họ và tên
@@ -61,15 +108,15 @@ function temp() {
                     </div>
                     <div className="group relative z-0 mb-6 w-full">
                         <input
-                            type="email"
-                            name="floating_email"
-                            id="floating_email"
+                            type="text"
+                            name="phoneNumber"
+                            id="phoneNumber"
                             className="peer block w-full appearance-none border-0 border-b border-gray-300 bg-transparent px-0 py-2.5 text-gray-900 outline-none"
                             placeholder=" "
                             required
                         />
                         <label
-                            htmlFor="floating_email"
+                            htmlFor="phoneNumber"
                             className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-gray-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400"
                         >
                             Số điện thoại
@@ -78,14 +125,14 @@ function temp() {
                     <div className="group relative z-0 mb-6 w-full">
                         <input
                             type="email"
-                            name="floating_email"
-                            id="floating_email"
+                            name="email"
+                            id="email"
                             className="peer block w-full appearance-none border-0 border-b border-gray-300 bg-transparent px-0 py-2.5 text-gray-900 outline-none"
                             placeholder=" "
                             required
                         />
                         <label
-                            htmlFor="floating_email"
+                            htmlFor="email"
                             className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-gray-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400"
                         >
                             Gmail
@@ -93,15 +140,15 @@ function temp() {
                     </div>
                     <div className="group relative z-0 mb-6 w-full">
                         <input
-                            type="email"
-                            name="floating_email"
-                            id="floating_email"
+                            type="password"
+                            name="password"
+                            id="password"
                             className="peer block w-full appearance-none border-0 border-b border-gray-300 bg-transparent px-0 py-2.5 text-gray-900 outline-none"
                             placeholder=" "
                             required
                         />
                         <label
-                            htmlFor="floating_email"
+                            htmlFor="password"
                             className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-gray-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400"
                         >
                             Mật khẩu
@@ -109,15 +156,15 @@ function temp() {
                     </div>
                     <div className="group relative z-0 w-full">
                         <input
-                            type="email"
-                            name="floating_email"
-                            id="floating_email"
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
                             className="peer block w-full appearance-none border-0 border-b border-gray-300 bg-transparent px-0 py-2.5 text-gray-900 outline-none"
                             placeholder=" "
                             required
                         />
                         <label
-                            htmlFor="floating_email"
+                            htmlFor="confirmPassword"
                             className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-gray-600 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4 dark:text-gray-400"
                         >
                             Nhập lại mật khẩu
@@ -143,4 +190,4 @@ function temp() {
     );
 }
 
-export default temp;
+export default RegisterPage;

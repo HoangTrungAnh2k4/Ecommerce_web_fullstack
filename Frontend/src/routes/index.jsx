@@ -20,7 +20,7 @@ const routes = [
     },
     {
         component: DetailPage,
-        path: '/detail',
+        path: '/detail/:id',
     },
     {
         component: CheckoutPage,

@@ -6,12 +6,12 @@ require('dotenv').config();
 const authServices = {
     register: async (data) => {
         try {
-            const { name, email, address, phone, password } = data;
+            const { name, email, address, phoneNumber, password, role } = data;
 
             // Bước 1: Chèn vào bảng user
             const [rows] = await pool.query(
-                'INSERT INTO user (name, email, address, phoneNumber) VALUES (?, ?, ?, ?)',
-                [name, email, address, phone],
+                'INSERT INTO user (name, email, address, phoneNumber, role) VALUES (?, ?, ?, ?, ?)',
+                [name, email, address, phoneNumber, role],
             );
 
             const userId = rows.insertId; // Lấy ID của user vừa tạo
@@ -21,7 +21,7 @@ const authServices = {
             // Bước 2: Chèn vào bảng auth_credentials (sau khi bước 1 hoàn thành)
             await pool.query('INSERT INTO auth_credentials (user_id, phoneNumber , password) VALUES (?,?, ?)', [
                 userId,
-                phone,
+                phoneNumber,
                 hash,
             ]);
 
@@ -49,15 +49,19 @@ const authServices = {
                 return { status: 401, message: 'Invalid phoneNumber or password' };
             }
 
-            const user = rows[0];
-            const isPasswordValid = bcrypt.compareSync(password, user.password);
+            const userAccount = rows[0];
+            const isPasswordValid = bcrypt.compareSync(password, userAccount.password);
             if (!isPasswordValid) {
                 return { status: 401, message: 'Invalid phoneNumber or password' };
             }
 
-            const [userName] = await pool.query('select name from user where id = ?', [user.user_id]);
+            const [userInfor] = await pool.query('select id, name, role from user where id = ?', [userAccount.user_id]);
 
-            const payload = { phoneNumber };
+            if (!userInfor || userInfor.length === 0) {
+                return { status: 404, message: 'User information not found' };
+            }
+
+            const payload = { phoneNumber, userInfor: userInfor[0] };
             const access_token = jwt.sign(payload, process.env.JWT_SECRET, {
                 expiresIn: process.env.JWT_EXPIRE,
             });
@@ -66,10 +70,6 @@ const authServices = {
                 status: 200,
                 data: {
                     access_token,
-                    user: {
-                        phoneNumber: user.phoneNumber,
-                        userName: userName[0].name,
-                    },
                 },
             };
         } catch (error) {

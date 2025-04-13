@@ -3,28 +3,52 @@ import { GiTakeMyMoney, GiMoneyStack } from 'react-icons/gi';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { MdOutlineWifiProtectedSetup } from 'react-icons/md';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import pc from '../../assets/images/PC/pc1.jpg';
 
 import Evaluation from './Evaluation';
 import Specification from './Specification';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getRateAPI } from '../../api/userAPI';
 
 function DetailPage() {
+    const { id } = useParams();
+    const [listRate, setListRate] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const response = await getRateAPI(id);
+                setListRate(response.data);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getData();
+    }, []);
+
     return (
         <div>
-            <div className="flex">
+            <div className="flex rounded-lg border bg-white p-4 shadow">
                 <div className="w-[400px] flex-1">
                     <div className="flex items-center justify-center">
                         <img src={pc} alt="" className="w-3/5" />
                     </div>
-                    <div className="mx-auto flex w-[90%] overflow-x-auto pb-2">
-                        {Array.from({ length: 10 }).map((_, index) => (
-                            <div
-                                key={index}
-                                className="mx-1 flex w-[90px] flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#b8b8b8]"
-                            >
-                                <img src={pc} alt="" className="" />
-                            </div>
-                        ))}
+                    <div className="mx-auto mt-8 flex w-[90%] overflow-x-auto pb-4">
+                        <Swiper spaceBetween={20} slidesPerView={5}>
+                            {Array.from({ length: 10 }).map((_, index) => (
+                                <SwiperSlide key={index}>
+                                    <div
+                                        key={index}
+                                        className="flex w-[90px] items-center justify-center rounded-lg border border-[#b8b8b8] p-[1px]"
+                                    >
+                                        <img src={pc} alt="" className="rounded-lg" />
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
                 <div className="flex-1 pl-4">
@@ -59,10 +83,12 @@ function DetailPage() {
                     </div>
 
                     <div className="mt-8 flex gap-4">
-                        <button className="w-1/2 rounded-lg border border-redColor py-2 text-redColor">
+                        <button className="w-1/2 rounded-lg border border-redColor py-2 text-redColor hover:shadow-inner hover:shadow-redColor">
                             THÊM VÀO GIỎ HÀNG
                         </button>
-                        <button className="w-1/2 rounded-lg bg-redColor text-white">MUA NGAY</button>
+                        <button className="w-1/2 rounded-lg bg-redColor from-redColor to-[#e8d01e] text-white hover:bg-gradient-to-tr">
+                            MUA NGAY
+                        </button>
                     </div>
 
                     <h3 className="mt-6 font-semibold text-textColor2">YÊN TÂM MUA HÀNG</h3>
@@ -88,7 +114,7 @@ function DetailPage() {
             </div>
             <div className="mt-12 flex gap-4">
                 <div className="w-3/5">
-                    <Evaluation />
+                    <Evaluation equipmenId={parseInt(id)} listRate={listRate} />
                 </div>
                 <div className="w-2/5">
                     <Specification />

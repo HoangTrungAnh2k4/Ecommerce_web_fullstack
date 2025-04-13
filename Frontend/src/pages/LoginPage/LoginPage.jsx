@@ -94,7 +94,7 @@ function LoginPage() {
                     </div>
                     <div className="group relative z-0 w-full">
                         <input
-                            type="text"
+                            type="password"
                             name="password"
                             id="password"
                             className="peer block w-full appearance-none border-0 border-b border-gray-300 bg-transparent px-0 py-2.5 text-gray-900 outline-none"

@@ -31,7 +31,7 @@ instance.interceptors.response.use(
             error.response?.data?.message == 'Authorization header is missing'
         ) {
             window.location.href = '/login';
-        } else if (error.request) {
+        } else if (!error.response && error.request) {
             // Request was made but no response was received
             console.error('No response received:', error.request);
             toast.error('Không thể kết nối đến máy chủ');

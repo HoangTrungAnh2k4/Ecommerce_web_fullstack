@@ -7,7 +7,10 @@ const auth = (req, res, next) => {
 
         try {
             // veryfy token
-            jwt.verify(token, process.env.JWT_SECRET);
+            const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+            req.user = { phoneNumber: decode.phoneNumber, userInfor: decode.userInfor };
+
             next();
         } catch (error) {
             console.log(error);

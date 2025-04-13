@@ -12,12 +12,12 @@ import pc from '../../assets/images/category/pc.png';
 const categoryList = [
     { name: 'PC - Build Sẵn', code: 'pc', image: pc, size: 'p-0' },
     { name: 'CPU - Bộ Vi Xử Lý', code: 'cpu', image: cpu, size: 'p-2' },
-    { name: 'VGA - Card Màn Hình', code: 'vga', image: vga, size: 'p-0' },
-    { name: 'Mainboard - Bo Mạch Chủ', code: 'pc', image: main, size: 'p-1' },
-    { name: 'Màn Hình Máy Tính', code: 'pc', image: monitor, size: 'p-1' },
-    { name: 'Laptop - Phụ Kiện', code: 'pc', image: laptop, size: 'p-1' },
-    { name: 'Chuột, Phím, ...', code: 'pc', image: acessory, size: 'p-3' },
-    { name: 'Thiết Bị Lưu Trữ', code: 'pc', image: ssd, size: 'p-3' },
+    { name: 'VGA - Card Màn Hình', code: 'gpu', image: vga, size: 'p-0' },
+    { name: 'Mainboard - Bo Mạch Chủ', code: 'mainboard', image: main, size: 'p-1' },
+    { name: 'Màn Hình Máy Tính', code: 'monitor', image: monitor, size: 'p-1' },
+    { name: 'Laptop - Phụ Kiện', code: 'laptop', image: laptop, size: 'p-1' },
+    { name: 'Chuột, Phím, ...', code: 'more', image: acessory, size: 'p-3' },
+    { name: 'Thiết Bị Lưu Trữ', code: 'ssd', image: ssd, size: 'p-3' },
 ];
 
 function Category() {

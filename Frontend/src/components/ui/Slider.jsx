@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ItemCard from './Item.card';
 
+import pc from '../../../public/pc2.jpg';
+
 import 'swiper/css';
 
-import pc from '../../assets/images/PC/pc1.jpg';
-
-function Slider({ list = [] }) {
+function Slider({ list }) {
     return (
         <Swiper spaceBetween={20} slidesPerView={5}>
             {list &&
@@ -13,13 +13,14 @@ function Slider({ list = [] }) {
                     <SwiperSlide key={index}>
                         <ItemCard
                             item={{
+                                id: item.id,
                                 image: pc,
-                                bestSale: true,
-                                name: 'Màn hình TUF Gaming VG249Q3A (24 inch/ Full HD/ 180Hz/ FreeSync/ 1ms GTG)',
-                                oldPrice: '20.000.000đ',
-                                newPrice: '18.000.000đ',
-                                discount: '-10%',
-                                countSold: '20',
+                                bestSale: item.bestSeller,
+                                name: item.name,
+                                oldPrice: item.price,
+                                newPrice: item.price * (1 - item.discount / 100),
+                                discount: item.discount,
+                                sold_quantity: item.sold_quantity,
                             }}
                         />
                     </SwiperSlide>
