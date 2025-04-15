@@ -15,7 +15,7 @@ function Slider({ list }) {
                             item={{
                                 id: item.id,
                                 image: pc,
-                                bestSale: item.bestSeller,
+                                best_seller: item.best_seller,
                                 name: item.name,
                                 oldPrice: item.price,
                                 newPrice: item.price * (1 - item.discount / 100),

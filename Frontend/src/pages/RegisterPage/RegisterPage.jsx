@@ -55,7 +55,9 @@ function RegisterPage() {
                 }, 1500);
             }
         } catch (error) {
-            if (error.status === 400) {
+            console.log(error);
+
+            if (error.status === 401) {
                 toast.error('Số điện thoại đã tồn tại!');
             } else {
                 toast.error('Đăng ký thất bại!');

@@ -3,15 +3,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaEye } from 'react-icons/fa';
 
 import { toast } from 'react-toastify';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
 import { authLoginAPI } from '../../api/authAPI';
-import { AuthContext } from '../../components/hooks/authContext';
 
 function LoginPage() {
     const navigate = useNavigate();
-    const { setAuth } = useContext(AuthContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,14 +25,6 @@ function LoginPage() {
                 localStorage.setItem('access_token', res.data.access_token);
 
                 toast.success('Đăng nhập thành công');
-
-                setAuth({
-                    isAuthenticated: true,
-                    user: {
-                        phoneNumber: res.data?.user?.phoneNumber ?? '',
-                        userName: res.data?.user?.userName ?? '',
-                    },
-                });
 
                 navigate('/');
             }

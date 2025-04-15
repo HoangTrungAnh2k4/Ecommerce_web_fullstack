@@ -43,6 +43,21 @@ const adminControllers = {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
     },
+
+    deleteRate: async (req, res) => {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ error: 'ID is required' });
+        }
+
+        try {
+            const result = await adminServices.deleteRate(id);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
 };
 
 module.exports = adminControllers;

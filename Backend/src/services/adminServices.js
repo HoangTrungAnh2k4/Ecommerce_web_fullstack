@@ -53,6 +53,20 @@ const adminServices = {
             return { status: 500, message: 'Internal Server Error' };
         }
     },
+
+    deleteRate: async (id) => {
+        try {
+            const sql = 'DELETE FROM evaluation WHERE id = ?';
+            await pool.query(sql, [id]);
+            return {
+                status: 200,
+                message: 'Xóa đánh giá thành công',
+            };
+        } catch (error) {
+            console.error('Database query error:', error);
+            return { status: 500, message: 'Internal Server Error' };
+        }
+    },
 };
 
 module.exports = adminServices;

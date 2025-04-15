@@ -1,27 +1,19 @@
 import { IoSearch, IoCart } from 'react-icons/io5';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
 
 import logo from '../../assets/images/logo.webp';
 import Cart from '../ui/Cart';
-import { useContext } from 'react';
-import { AuthContext } from '../hooks/authContext';
 
 function HeaderPage() {
     const avatr =
         'https://danhgiaxe.edu.vn/upload/2024/12/bo-suu-tap-hinh-anh-gai-k8-dep-quyen-ru-khien-ban-say-dam-4.webp';
-
     const navigation = useNavigate();
-
-    const { setAuth } = useContext(AuthContext);
 
     const handleLogout = () => {
         localStorage.clear('access_token');
-        setAuth({
-            isAuthenticated: false,
-            user: { phoneNumber: '', userName: '' },
-        });
+
         navigation('/login');
     };
 

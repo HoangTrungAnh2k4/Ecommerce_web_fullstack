@@ -73,15 +73,71 @@ const userControllers = {
     },
 
     getRate: async (req, res) => {
-        console.log('getRate');
-
         try {
             const { id } = req.params;
-            console.log(id);
 
             if (!id) return res.status(400).json({ error: 'Invalid id parameter' });
 
             const result = await userService.getRate(id);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
+
+    getEquipmentDetail: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id) return res.status(400).json({ error: 'Invalid id parameter' });
+
+            const result = await userService.getEquipmentDetail(id);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
+
+    addToCart: async (req, res) => {
+        try {
+            const userId = req.user.userInfor.id;
+            const { equipmentId, quantity } = req.body;
+            const equipment = {
+                id: parseInt(equipmentId),
+                quantity: parseInt(quantity),
+            };
+
+            if (!userId) return res.status(400).json({ error: 'Invalid id user_id' });
+
+            const result = await userService.addToCart(userId, equipment);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
+
+    getCart: async (req, res) => {
+        try {
+            const userId = req.user.userInfor.id;
+
+            if (!userId) return res.status(400).json({ error: 'Invalid id user_id' });
+
+            const result = await userService.getCart(userId);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
+
+    deleteItemCart: async (req, res) => {
+        try {
+            const equipmentId = req.params.id;
+            const userId = req.user.userInfor.id;
+
+            if (!userId) return res.status(400).json({ error: 'Invalid id user_id' });
+            if (!equipmentId) return res.status(400).json({ error: 'Invalid id equipment_id' });
+
+            const result = await userService.deleteItemCart(userId, equipmentId);
             res.status(result.status).json(result.message ? { message: result.message } : result.data);
         } catch (err) {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });

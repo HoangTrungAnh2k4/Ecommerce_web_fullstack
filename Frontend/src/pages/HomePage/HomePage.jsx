@@ -44,8 +44,6 @@ function HomePage() {
         fetchListBestSeller();
     }, []);
 
-    console.log('listCPU', listCPU);
-
     return (
         <div className="container mx-auto">
             <Banner list={list} />

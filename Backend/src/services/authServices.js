@@ -33,7 +33,7 @@ const authServices = {
         } catch (error) {
             console.error('Database query error:', error);
             if (error.code === 'ER_DUP_ENTRY') {
-                return { status: 400, message: 'Số điện thoại này đã được đăng ký. Vui lòng dùng số khác.' };
+                return { status: 409, message: 'Số điện thoại này đã được đăng ký. Vui lòng dùng số khác.' };
             }
 
             return { status: 500, message: 'Internal Server Error' };

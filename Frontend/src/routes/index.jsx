@@ -28,7 +28,7 @@ const routes = [
     },
     {
         component: ListProductFlowType,
-        path: '/list-product/:id',
+        path: '/list-product',
     },
 ];
 

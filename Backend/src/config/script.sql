@@ -33,7 +33,8 @@ create table
             and discount <= 100
         ),
         sold_quantity int not null check (sold_quantity >= 0),
-        best_seller boolean not null default false
+        best_seller boolean not null default false,
+        stock_quantity int not null default 0
     );
 
 create table
@@ -47,6 +48,7 @@ create table
         user_id int not null,
         user_name varchar(255) not null,
         equipment_id int not null,
+        date datetime not null default current_timestamp,
         foreign key (user_id) references user (id) on delete cascade,
         foreign key (equipment_id) references equipment (id) on delete cascade
     );

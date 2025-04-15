@@ -8,6 +8,7 @@ const auth = (req, res, next) => {
         try {
             // veryfy token
             const decode = jwt.verify(token, process.env.JWT_SECRET);
+            console.log(decode);
 
             req.user = { phoneNumber: decode.phoneNumber, userInfor: decode.userInfor };
 

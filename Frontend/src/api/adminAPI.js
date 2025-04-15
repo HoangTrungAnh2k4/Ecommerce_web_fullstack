@@ -13,3 +13,9 @@ export const deleteProductAPI = async (id) => {
 
     return instance.delete(URL_API);
 };
+
+export const deleteRateAPI = async (id) => {
+    const URL_API = `${ADMIN_URL}/delete-rate/${id}`;
+
+    return instance.delete(URL_API);
+};

@@ -188,7 +188,7 @@ function ListProductFlowType() {
                                 item={{
                                     id: item.id,
                                     image: item.images?.[0],
-                                    bestSale: true,
+                                    best_seller: item.best_seller,
                                     name: item.name,
                                     oldPrice: item.price,
                                     newPrice: item.price * (1 - item.discount / 100),
