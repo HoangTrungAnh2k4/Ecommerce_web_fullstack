@@ -4,20 +4,24 @@ import HomePage from '../pages/HomePage/HomePage';
 import DetailPage from '../pages/DetailPage/DetailPage';
 import CheckoutPage from '../pages/CheckoutPage/CheckoutPage';
 import ListProductFlowType from '../pages/ListProductFlowType/ListProductFlowType';
+import ManageAccount from '../pages/ManageAccount/ManageAccount';
 
 const routes = [
     {
-        component: HomePage,
-        path: '/',
-    },
-    {
         component: LoginPage,
         path: '/login',
+        layout: 'auth',
     },
     {
         component: RegisterPage,
         path: '/register',
+        layout: 'auth',
     },
+    {
+        component: HomePage,
+        path: '/',
+    },
+
     {
         component: DetailPage,
         path: '/detail/:id',
@@ -29,6 +33,10 @@ const routes = [
     {
         component: ListProductFlowType,
         path: '/list-product',
+    },
+    {
+        component: ManageAccount,
+        path: '/manage-account',
     },
 ];
 

@@ -3,12 +3,13 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { ConfigProvider } from 'antd';
+import { ToastContainer } from 'react-toastify';
 
 import './index.css';
 import routes from './routes';
 import PrimaryLayout from './components/layout/PrimaryLayout';
+import AuthLayout from './components/layout/AuthLayout';
 import { ListItemBuyWrapper } from './components/hooks/listItemBuyContext';
-import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -26,6 +27,22 @@ createRoot(document.getElementById('root')).render(
                     <Routes>
                         {routes.map((route, index) => {
                             const Page = route.component;
+
+                            if (route.layout === 'auth') {
+                                return (
+                                    <Route
+                                        key={index}
+                                        path={route.path}
+                                        element={
+                                            <AuthLayout>
+                                                <Page />
+                                            </AuthLayout>
+                                        }
+                                    />
+                                );
+                            }
+
+                            // Default layout
                             return (
                                 <Route
                                     key={index}

@@ -143,6 +143,35 @@ const userControllers = {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
     },
+
+    addNewOrder: async (req, res) => {
+        try {
+            const { listEquipment } = req.body;
+
+            const userId = req.user.userInfor.id;
+
+            if (!userId) return res.status(400).json({ error: 'Invalid id user_id' });
+            if (!listEquipment) return res.status(400).json({ error: 'Invalid id listEquipment' });
+
+            const result = await userService.addNewOrder(userId, listEquipment);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
+
+    getOrder: async (req, res) => {
+        try {
+            const userId = req.user.userInfor.id;
+
+            if (!userId) return res.status(400).json({ error: 'Invalid id user_id' });
+
+            const result = await userService.getOrder(userId);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
 };
 
 module.exports = userControllers;

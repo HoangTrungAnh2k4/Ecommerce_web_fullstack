@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const { login } = require('./authServices');
 
 const userService = {
     test: async () => {
@@ -256,8 +257,67 @@ const userService = {
             if (error.code === 'ER_NO_SUCH_TABLE') {
                 throw new Error('TABLE_NOT_FOUND');
             } else if (error.code === 'ER_DUP_ENTRY') {
-                console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>> check duplicate entry');
+                return { status: 409, message: 'Duplicate entry' };
+            } else {
+                throw new Error('DATABASE_ERROR');
+            }
+        }
+    },
 
+    addNewOrder: async (userId, listEquipmentId) => {
+        try {
+            const sql = `insert into order_common (user_id) values (?)`;
+            const params = [userId];
+            const [results] = await pool.query(sql, params);
+
+            if (results.affectedRows === 0) {
+                return { status: 404, message: 'User not found' };
+            }
+
+            const orderId = results.insertId;
+
+            const sql2 = `insert into order_detail (order_id, equipment_id, quantity) values ?`;
+            const params2 = listEquipmentId.map((equipment) => [orderId, equipment.id, equipment.quantity]);
+            const [results2] = await pool.query(sql2, [params2]);
+
+            if (results2.affectedRows === 0) {
+                return { status: 404, message: 'Equipment not found' };
+            }
+
+            return { status: 200, message: 'Add new order successfully' };
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.code === 'ER_NO_SUCH_TABLE') {
+                throw new Error('TABLE_NOT_FOUND');
+            } else if (error.code === 'ER_DUP_ENTRY') {
+                return { status: 409, message: 'Duplicate entry' };
+            } else {
+                throw new Error('DATABASE_ERROR');
+            }
+        }
+    },
+
+    getOrder: async (userId) => {
+        try {
+            const sql = `
+                        SELECT od.*, oc.date
+                        FROM order_detail od
+                        JOIN order_common oc ON od.order_id = oc.order_id
+                        WHERE oc.user_id = ?
+                        ORDER BY od.order_id DESC
+                        `;
+
+            const [results2] = await pool.query(sql, [userId]);
+
+            if (results2.length === 0) {
+                return { status: 404, message: 'Order detail not found' };
+            }
+            return { status: 200, data: results2 };
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.code === 'ER_NO_SUCH_TABLE') {
+                throw new Error('TABLE_NOT_FOUND');
+            } else if (error.code === 'ER_DUP_ENTRY') {
                 return { status: 409, message: 'Duplicate entry' };
             } else {
                 throw new Error('DATABASE_ERROR');

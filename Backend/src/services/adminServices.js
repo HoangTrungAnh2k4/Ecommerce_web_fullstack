@@ -67,6 +67,58 @@ const adminServices = {
             return { status: 500, message: 'Internal Server Error' };
         }
     },
+
+    getAllOrders: async () => {
+        try {
+            const sql = `
+                SELECT od.*, oc.user_id, oc.date
+                FROM order_detail od
+                JOIN order_common oc ON od.order_id = oc.order_id
+                ORDER BY od.order_id DESC
+            `;
+
+            const [results] = await pool.query(sql);
+
+            if (results.length === 0) {
+                return { status: 404, message: 'No orders found' };
+            }
+
+            return { status: 200, data: results };
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.code === 'ER_NO_SUCH_TABLE') {
+                throw new Error('TABLE_NOT_FOUND');
+            } else if (error.code === 'ER_DUP_ENTRY') {
+                return { status: 409, message: 'Duplicate entry' };
+            } else {
+                throw new Error('DATABASE_ERROR');
+            }
+        }
+    },
+
+    getMonthlyStats: async () => {
+        try {
+            const sql = `
+                SELECT 
+                    DATE_FORMAT(oc.date, '%Y-%m') AS month,
+                    COUNT(DISTINCT oc.order_id) AS total_orders,
+                    SUM(od.quantity * e.price * (1 - e.discount / 100)) AS total_revenue
+                FROM order_common oc
+                JOIN order_detail od ON oc.order_id = od.order_id
+                JOIN equipment e ON od.equipment_id = e.id
+                GROUP BY month
+                ORDER BY month DESC;
+
+            `;
+
+            const [results] = await pool.query(sql);
+
+            return { status: 200, data: results };
+        } catch (error) {
+            console.error('Error:', error);
+            throw new Error('DATABASE_ERROR');
+        }
+    },
 };
 
 module.exports = adminServices;

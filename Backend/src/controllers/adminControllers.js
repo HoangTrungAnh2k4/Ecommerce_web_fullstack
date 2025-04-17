@@ -58,6 +58,24 @@ const adminControllers = {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
     },
+
+    getAllOrders: async (req, res) => {
+        try {
+            const result = await adminServices.getAllOrders();
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
+
+    getMonthlyStats: async (req, res) => {
+        try {
+            const result = await adminServices.getMonthlyStats();
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
 };
 
 module.exports = adminControllers;

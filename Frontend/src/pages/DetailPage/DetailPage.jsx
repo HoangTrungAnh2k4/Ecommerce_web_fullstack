@@ -55,6 +55,8 @@ function DetailPage() {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         const getEquipmentInfor = async () => {
             try {
                 const response = await getEquipmentDetailAPI(id);

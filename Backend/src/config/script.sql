@@ -78,6 +78,23 @@ create table
         foreign key (equipment_id) references equipment (id) on delete cascade
     );
 
+create table
+    order_common (
+        order_id int primary key auto_increment,
+        user_id int not null,
+        foreign key (user_id) references user (id) on delete cascade,
+        date datetime not null default current_timestamp
+    );
+
+create table
+    order_detail (
+        order_id int not null,
+        equipment_id int not null,
+        quantity int not null,
+        primary key (order_id, equipment_id),
+        foreign key (order_id) references order_common (order_id) on delete cascade
+    );
+
 INSERT INTO
     equipment (
         type,

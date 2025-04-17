@@ -19,4 +19,7 @@ router.post('/add-to-cart', userController.addToCart);
 router.get('/get-cart', userController.getCart);
 router.delete('/delete-item-cart/:id', userController.deleteItemCart);
 
+router.post('/add-new-order', userController.addNewOrder);
+router.get('/get-order', userController.getOrder);
+
 module.exports = router;

@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import Slider from '../../components/ui/Slider';
 import Category from './Category';
 import Banner from './Banner';
-import { getListBestSellerAPI } from '../../api/userAPI';
+import { addNewOrderAPI, getListBestSellerAPI } from '../../api/userAPI';
 
 const list = new Array(10).fill(0);
 
@@ -43,6 +43,20 @@ function HomePage() {
         };
         fetchListBestSeller();
     }, []);
+
+    // useEffect(()=>{
+    //     const obj = {
+    //         {
+    //             'id':1,
+    //             'name4':'hoang trung anh',
+    //             'age':20
+    //         },{
+    //             'id':2,
+    //             'name4':'hoang trung anh',
+    //             'age':20
+    //         }
+    //     }
+    // },[])
 
     return (
         <div className="container mx-auto">

@@ -11,6 +11,7 @@ function Cart() {
     const [idItemCart, setIdItemCart] = useState([]);
     const [inforItemCart, setInforItemCart] = useState([]);
     const [finalCart, setFinalCart] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const { setListItem } = useContext(ListItemBuyContext);
 
@@ -41,6 +42,14 @@ function Cart() {
     useEffect(() => {
         getIdItemCart();
     }, []);
+
+    useEffect(() => {
+        const total = finalCart.reduce((acc, item) => {
+            return acc + item.price * item.quantity;
+        }, 0);
+
+        setTotalPrice(total);
+    }, [finalCart]);
 
     useEffect(() => {
         const getInforItemCart = async () => {
@@ -87,7 +96,7 @@ function Cart() {
     }, [inforItemCart]);
 
     return (
-        <div className="absolute right-0 -mt-2 hidden w-[400px] animate-fade-up rounded-lg border bg-white p-3 shadow animate-duration-500 group-hover:block">
+        <div className="absolute right-0 mt-2 hidden w-[400px] animate-fade-up rounded-lg border bg-white p-3 shadow animate-duration-500 group-hover:block">
             <ul className="h-[300px] overflow-y-auto pr-2">
                 {finalCart.length !== 0 &&
                     finalCart.map((item, index) => {
@@ -124,8 +133,8 @@ function Cart() {
             <div className="border-t border-gray-300 pb-2 pt-4">
                 <div className="flex items-center justify-center gap-2">
                     <p className="text-sm">Tổng tiền hàng</p>
-                    <p className="text-sm text-redColor">(4 sản phẩm)</p>
-                    <p className="font-semibold text-redColor">72.000.000đ</p>
+                    <p className="text-sm text-redColor">({finalCart?.length} sản phẩm)</p>
+                    <p className="font-semibold text-redColor">{totalPrice.toLocaleString('vi-VN')}</p>
                 </div>
 
                 <a

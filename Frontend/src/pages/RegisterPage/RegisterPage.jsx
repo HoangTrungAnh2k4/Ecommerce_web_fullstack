@@ -66,9 +66,9 @@ function RegisterPage() {
     };
 
     return (
-        <div className="justify-items-center">
-            <div className="mt-12 w-[600px]">
-                <h3 className="text-center text-xl font-semibold">Đăng ký với</h3>
+        <div className="login__page flex h-screen items-center justify-center">
+            <div className="w-[500px] rounded-xl bg-white px-10 py-6 shadow">
+                {/* <h3 className="text-center text-xl font-semibold">Đăng ký với</h3>
                 <div className="mt-10 flex justify-evenly">
                     <div className="flex items-center gap-2">
                         <FcGoogle className="size-[26px]" />
@@ -82,16 +82,11 @@ function RegisterPage() {
                         <img src={zaloIcon} alt="" className="size-[24px]" />
                         <p className="text-lg text-textColor2">Zalo</p>
                     </div>
-                </div>
-                {/* separate line */}
-                <div className="mt-12 flex items-center px-12">
-                    <div className="w-full border-b-2 border-[#dbdbdb]"></div>
-                    <p className="mx-4 text-lg text-textColor2">Hoặc</p>
-                    <div className="w-full border-b-2 border-[#dbdbdb]"></div>
-                </div>
+                </div> */}
+                <h3 className="text-center text-xl font-semibold">Đăng ký</h3>
 
                 {/* form input */}
-                <form onSubmit={handleRegister} className="mt-8">
+                <form onSubmit={handleRegister} className="mt-6">
                     <div className="group relative z-0 mb-6 w-full">
                         <input
                             type="text"

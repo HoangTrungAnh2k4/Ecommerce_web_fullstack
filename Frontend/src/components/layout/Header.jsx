@@ -20,7 +20,7 @@ function HeaderPage() {
     const items = [
         {
             label: (
-                <Link to={''} className="">
+                <Link to={'/manage-account'} className="">
                     Your profile
                 </Link>
             ),
@@ -52,15 +52,11 @@ function HeaderPage() {
             </div>
 
             <div className="flex items-center gap-6">
-                <div className="group relative">
-                    <div className="cursor-pointer px-8 py-1 text-primary transition-all">
-                        <IoCart className="my-auto mt-[18px] text-3xl" />
-                        <div className="relative -right-5 -top-9 flex size-[18px] items-center justify-center rounded-full bg-redColor text-[10px] font-semibold text-white">
-                            20
-                        </div>
-                    </div>
+                <div className="group relative before:absolute before:inset-x-0 before:top-0 before:h-[130%] before:content-['']">
+                    <IoCart className="my-auto cursor-pointer rounded-full p-1 text-[2.5rem] hover:bg-white" />
                     <Cart />
                 </div>
+
                 <Dropdown menu={{ items }} trigger={['click']} placement="bottomRight">
                     <a onClick={(e) => e.preventDefault()} className="cursor-pointer">
                         <Space>

@@ -57,3 +57,15 @@ export const addToCartAPI = async (data) => {
 export const deleteItemCartAPI = async (id) => {
     return instance.delete(`${CLIENT_URL}/delete-item-cart/${id}`);
 };
+
+// -------------------------------------------------
+//              api about order
+// -------------------------------------------------
+
+export const addNewOrderAPI = async (data) => {
+    return instance.post(`${CLIENT_URL}/add-new-order`, data);
+};
+
+export const getOrderAPI = async () => {
+    return instance.get(`${CLIENT_URL}/get-order`);
+};

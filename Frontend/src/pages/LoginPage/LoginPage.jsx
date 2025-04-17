@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
 import { authLoginAPI } from '../../api/authAPI';
 
+import bgImage from '../../../public/bg.jpg';
+
 function LoginPage() {
     const navigate = useNavigate();
 
@@ -40,10 +42,10 @@ function LoginPage() {
     useEffect(() => {}, []);
 
     return (
-        <div className="login__page justify-items-center">
-            <div className="mt-12 w-[600px]">
+        <div className="login__page flex h-screen items-center justify-center">
+            <div className="w-[500px] rounded-xl bg-white px-10 py-6 shadow">
                 <h3 className="text-center text-xl font-semibold">Đăng nhập với</h3>
-                <div className="mt-10 flex justify-evenly">
+                <div className="mt-12 flex justify-evenly">
                     <div className="flex items-center gap-2">
                         <FcGoogle className="size-[26px]" />
                         <p className="text-lg text-textColor2">Google</p>

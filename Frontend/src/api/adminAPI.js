@@ -19,3 +19,15 @@ export const deleteRateAPI = async (id) => {
 
     return instance.delete(URL_API);
 };
+
+export const getAllOrdersAPI = async () => {
+    const URL_API = `${ADMIN_URL}/get-all-orders`;
+
+    return instance.get(URL_API);
+};
+
+export const getMonthlyStatsAPI = async () => {
+    const URL_API = `${ADMIN_URL}/get-monthly-stats`;
+
+    return instance.get(URL_API);
+};
