@@ -3,11 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { deleteProductAPI } from '../../api/adminAPI';
 
 import bestSale from '../../assets/images/general/best-sale.png';
-import pc from '../../../public/pc2.jpg';
 import { toast } from 'react-toastify';
+
+import pc from '../../../public/pc2.jpg';
+import { getUserInforAPI } from '../../api/userAPI';
+import { useEffect } from 'react';
+import { useUser } from '../hooks/UserContext';
 
 function ItemCard({ item }) {
     const navigate = useNavigate();
+    const { userInfo } = useUser();
+    console.log(userInfo);
 
     const handleDeleteProduct = async () => {
         try {
@@ -41,23 +47,25 @@ function ItemCard({ item }) {
                 </h2>
 
                 <div className="mt-auto flex items-center gap-4">
-                    <p className="text-sm text-textColor2 line-through">{item?.oldPrice?.toLocaleString('vi-VN')}</p>
+                    <p className="text-sm text-textColor2 line-through">{item.price?.toLocaleString('vi-VN')}</p>
                     <div className="rounded-lg bg-redColor px-2 py-[2px] text-sm text-white">
                         {item?.discount || 0}%
                     </div>
                 </div>
 
                 <div className="mt-2 text-xl font-semibold text-redColor">
-                    {item?.newPrice?.toLocaleString('vi-VN')}
+                    {(Math.ceil((item.price * (1 - item.discount / 100)) / 1000) * 1000).toLocaleString('vi-VN')}
                 </div>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
                 <p className="font-semibold text-textColor1">Đã bán:</p>
                 <span className="">{item?.sold_quantity}</span>
-                <button onClick={handleDeleteProduct} className="btn ml-auto">
-                    Xóa
-                </button>
+                {userInfo?.role === 'admin' && (
+                    <button onClick={handleDeleteProduct} className="btn ml-auto">
+                        Xóa
+                    </button>
+                )}
             </div>
         </div>
     );

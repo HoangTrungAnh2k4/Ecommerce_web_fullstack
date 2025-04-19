@@ -2,8 +2,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 
-import banner from '../../assets/images/slider/vga.webp';
-
 function Banner({ list = [] }) {
     return (
         <div className="relative z-0">
@@ -11,7 +9,11 @@ function Banner({ list = [] }) {
                 {list &&
                     list.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <img src={banner} alt="" className="" />
+                            <img
+                                src="https://nguyencongpc.vn/media/banner/27_Mar8548551a382f4409018e150f5b4945fe.webp"
+                                alt=""
+                                className="rounded-lg"
+                            />
                         </SwiperSlide>
                     ))}
             </Swiper>

@@ -3,12 +3,9 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaEye } from 'react-icons/fa';
 
 import { toast } from 'react-toastify';
-import { useEffect } from 'react';
 
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
 import { authLoginAPI } from '../../api/authAPI';
-
-import bgImage from '../../../public/bg.jpg';
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -38,8 +35,6 @@ function LoginPage() {
             } else toast.error('Lỗi hệ thống');
         }
     };
-
-    useEffect(() => {}, []);
 
     return (
         <div className="login__page flex h-screen items-center justify-center">

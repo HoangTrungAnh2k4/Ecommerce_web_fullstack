@@ -22,4 +22,6 @@ router.delete('/delete-item-cart/:id', userController.deleteItemCart);
 router.post('/add-new-order', userController.addNewOrder);
 router.get('/get-order', userController.getOrder);
 
+router.get('/search', userController.search);
+
 module.exports = router;

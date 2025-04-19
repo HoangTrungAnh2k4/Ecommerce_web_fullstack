@@ -172,6 +172,19 @@ const userControllers = {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
     },
+
+    search: async (req, res) => {
+        try {
+            const search = req.query.search || '';
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+
+            const result = await userService.search(search, page, limit);
+            res.status(result.status).json(result.message ? { message: result.message } : result.data);
+        } catch (err) {
+            res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+        }
+    },
 };
 
 module.exports = userControllers;

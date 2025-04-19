@@ -32,7 +32,7 @@ const routes = [
     },
     {
         component: ListProductFlowType,
-        path: '/list-product',
+        path: '/list-product/:id',
     },
     {
         component: ManageAccount,

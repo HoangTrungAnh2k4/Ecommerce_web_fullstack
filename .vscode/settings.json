@@ -1,0 +1,11 @@
+{
+  "editor.fontSize": 16,
+  "editor.fontFamily": "Consolas, 'Courier New', monospace",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "files.autoSaveDelay": 500,
+  "editor.defaultFormatter": null,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "workbench.editor.labelFormat": "default"
+}

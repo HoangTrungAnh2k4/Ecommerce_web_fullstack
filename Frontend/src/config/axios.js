@@ -30,6 +30,8 @@ instance.interceptors.response.use(
             error.response?.data?.message == 'Access_token is expired or invalid' ||
             error.response?.data?.message == 'Authorization header is missing'
         ) {
+            // Access token is expired or invalid
+            localStorage.removeItem('access_token');
             window.location.href = '/login';
         } else if (!error.response && error.request) {
             // Request was made but no response was received

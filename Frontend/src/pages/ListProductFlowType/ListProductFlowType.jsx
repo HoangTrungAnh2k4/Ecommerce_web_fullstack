@@ -19,40 +19,15 @@ function ListProductFlowType() {
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false);
 
-    const data = [
-        {
-            id: 'pc',
-            name: 'PC Build Sẵn',
-        },
-        {
-            id: 'cpu',
-            name: 'CPU - Bộ Vi Xử Lý',
-        },
-        {
-            id: 'gpu',
-            name: 'GPU - Card Màn Hình',
-        },
-        {
-            id: 'mainboard',
-            name: 'Mainboard - Bo Mạch Chủ',
-        },
-        {
-            id: 'monitor',
-            name: 'Màn Hình Máy Tính',
-        },
-        {
-            id: 'laptop',
-            name: 'Laptop - Phụ Kiện',
-        },
-        {
-            id: 'more',
-            name: 'Chuột, Phím, ...',
-        },
-        {
-            id: 'ssd',
-            name: 'Thiết Bị Lưu Trữ',
-        },
-    ];
+    const equipmentType = {
+        cpu: 'CPU - Bộ Vi Xử Lý',
+        gpu: 'GPU - Card Màn Hình',
+        mainboard: 'Mainboard - Bo Mạch Chủ',
+        monitor: 'Màn Hình Máy Tính',
+        laptop: 'Laptop - Phụ Kiện',
+        pc: 'PC Build Sẵn',
+        ssd: 'Thiết Bị Lưu Trữ',
+    };
 
     const getListEquipmentByType = async () => {
         try {
@@ -85,10 +60,16 @@ function ListProductFlowType() {
             }
         } catch (error) {
             console.error('Error fetching data:', error);
+            if (error.response?.data?.message) {
+                toast.error(error.response?.data?.message);
+            } else if (error.response?.data?.error) {
+                toast.error(error.response?.data?.error);
+            }
         }
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getListEquipmentByType();
         getListBestSeller();
     }, [id]);
@@ -97,9 +78,7 @@ function ListProductFlowType() {
         <div className="">
             <img src={vgaSlide} alt="" className="rounded-lg" />
 
-            <h1 className="mt-6 text-center text-2xl font-semibold text-[#0f5b99]">
-                {data.find((item) => item.id === id)?.name}
-            </h1>
+            <h1 className="mt-6 text-center text-2xl font-semibold text-[#0f5b99]">{equipmentType[id]}</h1>
 
             <div className="mt-6 rounded-lg bg-gradient-to-r from-[#8f0000] via-redColor to-[#8f0000] px-6 py-6">
                 <h3 className="text-center text-3xl font-semibold text-white">TOP 10 SẢN PHẨM</h3>
@@ -120,10 +99,10 @@ function ListProductFlowType() {
                                     image: item.images?.[0],
                                     bestSale: true,
                                     name: item.name,
-                                    oldPrice: '20.000.000đ',
-                                    newPrice: '18.000.000đ',
-                                    discount: '-10%',
+                                    price: item.price,
+                                    discount: item.discount,
                                     countSold: item.sold_quantity ?? 0,
+                                    sold_quantity: item.sold_quantity,
                                 }}
                             />
                         ))
@@ -190,10 +169,10 @@ function ListProductFlowType() {
                                     image: item.images?.[0],
                                     best_seller: item.best_seller,
                                     name: item.name,
-                                    oldPrice: item.price,
-                                    newPrice: item.price * (1 - item.discount / 100),
+                                    price: item.price,
                                     discount: item.discount,
                                     countSold: item.sold_quantity ?? 0,
+                                    sold_quantity: item.sold_quantity,
                                 }}
                             />
                         ))
@@ -201,7 +180,7 @@ function ListProductFlowType() {
                 </div>
             </div>
 
-            <ModalAddProduct visible={visible} setVisible={setVisible} handleAddProduct={handleAddProduct} />
+            <ModalAddProduct id={id} visible={visible} setVisible={setVisible} handleAddProduct={handleAddProduct} />
         </div>
     );
 }

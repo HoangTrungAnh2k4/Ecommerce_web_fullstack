@@ -1,5 +1,4 @@
 const pool = require('../config/db');
-const { login } = require('./authServices');
 
 const userService = {
     test: async () => {
@@ -319,6 +318,48 @@ const userService = {
                 throw new Error('TABLE_NOT_FOUND');
             } else if (error.code === 'ER_DUP_ENTRY') {
                 return { status: 409, message: 'Duplicate entry' };
+            } else {
+                throw new Error('DATABASE_ERROR');
+            }
+        }
+    },
+
+    search: async (search, page = 1, limit = 10) => {
+        try {
+            const offset = (page - 1) * limit;
+            const searchQuery = `%${search}%`;
+
+            // Query chính
+            const query = `
+                            SELECT * FROM users
+                            WHERE name LIKE ? OR email LIKE ?
+                            LIMIT ? OFFSET ?
+                        `;
+
+            // Đếm tổng số bản ghi phù hợp
+            const countQuery = `
+                                SELECT COUNT(*) as total FROM users
+                                WHERE name LIKE ? OR email LIKE ?
+                            `;
+
+            const [users] = await pool.query(query, [searchQuery, searchQuery, limit, offset]);
+            const [countResult] = await pool.query(countQuery, [searchQuery, searchQuery]);
+
+            const total = countResult[0].total;
+            const totalPages = Math.ceil(total / limit);
+
+            return {
+                status: 200,
+                data: {
+                    users,
+                    total,
+                    totalPages,
+                },
+            };
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.code === 'ER_NO_SUCH_TABLE') {
+                throw new Error('TABLE_NOT_FOUND');
             } else {
                 throw new Error('DATABASE_ERROR');
             }

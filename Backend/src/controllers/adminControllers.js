@@ -1,9 +1,14 @@
 const adminServices = require('../services/adminServices');
 
 const adminControllers = {
+    Type: ['pc', 'laptop', 'monitor', 'ssd', 'cpu', 'gpu', 'mainboard'],
+
     addProduct: async (req, res) => {
-        const { name, type, sold_quantity, price, discount, urlImage, best_seller } = req.body;
-        console.log('Request body:', req.body); // Log the request body for debugging
+        const { name, type, sold_quantity, price, discount, urlImage, best_seller, stock_quantity = 0 } = req.body;
+
+        if (!type || !adminControllers.Type.includes(type)) {
+            return res.status(400).json({ error: 'Invalid type parameter' });
+        }
 
         if (!name || !type || sold_quantity === undefined || price === undefined || discount === undefined) {
             return res.status(400).json({ error: 'All fields are required' });
@@ -22,6 +27,7 @@ const adminControllers = {
                 discount,
                 urlImage,
                 best_seller,
+                stock_quantity,
             });
             res.status(result.status).json(result.message ? { message: result.message } : result.data);
         } catch (err) {

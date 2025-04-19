@@ -2,7 +2,17 @@ import { IoClose } from 'react-icons/io5';
 
 import { Form, Input, InputNumber, Radio, Switch, Upload } from 'antd';
 
-const ModalAddProduct = ({ handleAddProduct, visible, setVisible }) => {
+const typeEquipment = {
+    pc: 'PC',
+    cpu: 'CPU',
+    gpu: 'GPU',
+    mainboard: 'Mainboard',
+    monitor: 'Màn hình',
+    ssd: 'SSD',
+    laptop: 'Laptop',
+};
+
+const ModalAddProduct = ({ id, handleAddProduct, visible, setVisible }) => {
     const handleAddNewProduct = (value) => {
         const result = {
             name: value.name,
@@ -11,6 +21,7 @@ const ModalAddProduct = ({ handleAddProduct, visible, setVisible }) => {
             discount: value.discount,
             best_seller: value.best_seller ? 1 : 0,
             sold_quantity: 0,
+            stock_quantity: value.stock_quantity,
         };
 
         handleAddProduct(result);
@@ -18,8 +29,6 @@ const ModalAddProduct = ({ handleAddProduct, visible, setVisible }) => {
 
     return (
         <>
-            <button onClick={() => setVisible(true)}>Open Modal</button>
-
             {visible && (
                 <div className="fixed inset-0 z-50 flex h-screen w-full items-start justify-center bg-black bg-opacity-70 transition-all duration-300 ease-in-out">
                     <Form
@@ -44,13 +53,11 @@ const ModalAddProduct = ({ handleAddProduct, visible, setVisible }) => {
                             rules={[{ required: true, message: 'Thiếu thông tin' }]}
                         >
                             <Radio.Group>
-                                <Radio value="pc"> PC </Radio>
-                                <Radio value="cpu"> CPU </Radio>
-                                <Radio value="gpu"> GPU </Radio>
-                                <Radio value="main"> Main </Radio>
-                                <Radio value="monitor"> Màn hình </Radio>
-                                <Radio value="ssd"> SSD </Radio>
-                                <Radio value="laptop"> Laptop </Radio>
+                                {typeEquipment[id] && (
+                                    <Radio value={id} checked>
+                                        {typeEquipment[id]}
+                                    </Radio>
+                                )}
                             </Radio.Group>
                         </Form.Item>
 
@@ -68,6 +75,14 @@ const ModalAddProduct = ({ handleAddProduct, visible, setVisible }) => {
                             rules={[{ required: true, message: 'Thiếu thông tin' }]}
                         >
                             <InputNumber min={0} max={100} style={{ width: '30%' }} />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Số lượng"
+                            name="stock_quantity"
+                            rules={[{ required: true, message: 'Thiếu thông tin' }]}
+                        >
+                            <InputNumber min={0} style={{ width: '30%' }} />
                         </Form.Item>
 
                         <Form.Item label="Gắn nhãn bán chạy" name="best_seller" valuePropName="checked">

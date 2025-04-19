@@ -3,11 +3,11 @@ const pool = require('../config/db');
 const adminServices = {
     addProduct: async (data) => {
         try {
-            const { name, type, sold_quantity, price, discount, urlImage, best_seller } = data;
+            const { name, type, sold_quantity, price, discount, urlImage, best_seller, stock_quantity } = data;
 
             const sql1 =
-                'INSERT INTO equipment (name, type, sold_quantity, price, discount,best_seller) VALUES ( ?, ?, ?, ?, ?, ?)';
-            const params1 = [name, type, sold_quantity, price, discount, best_seller];
+                'INSERT INTO equipment (name, type, sold_quantity, price, discount,best_seller, stock_quantity) VALUES ( ?, ?, ?, ?, ?, ?, ?)';
+            const params1 = [name, type, sold_quantity, price, discount, best_seller, stock_quantity];
 
             // thêm dữ liệu vào bảng equipment
             const [result1] = await pool.query(sql1, params1);

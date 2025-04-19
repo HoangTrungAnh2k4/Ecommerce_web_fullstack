@@ -14,12 +14,6 @@ function RoleAdmin() {
         return `${month}/${year} `;
     };
 
-    // return {
-    //     label: `Tab ${id}`,
-    //     key: id,
-    //     children: `Content of Tab Pane ${id}`,
-    //   };
-
     const onChange = (key) => {
         // console.log(key);
     };
@@ -33,9 +27,24 @@ function RoleAdmin() {
                 if (res.data) {
                     const result = res.data.map((item) => {
                         return {
-                            label: formatDate(item.date),
-                            key: formatDate(item.date),
-                            children: 'Content of Tab Pane ',
+                            label: (
+                                <div className="text-base font-semibold text-textColor1">{formatDate(item.month)}</div>
+                            ),
+                            key: formatDate(item.month),
+                            children: (
+                                <div className="flex flex-wrap gap-6">
+                                    <div className="mt-2 w-fit rounded-lg border bg-white px-6 py-2 text-base">
+                                        <p className="font-semibold text-textColor1">Tổng số đơn</p>
+                                        <p className="mt-2 text-center font-semibold">{item.total_orders}</p>
+                                    </div>
+                                    <div className="mt-2 w-fit rounded-lg border bg-white px-6 py-2 text-base">
+                                        <p className="font-semibold text-textColor1">Doanh thu</p>
+                                        <p className="mt-2 text-center font-semibold">
+                                            {Number(item.total_revenue).toLocaleString('vi-VN')}
+                                        </p>
+                                    </div>
+                                </div>
+                            ),
                         };
                     });
                     setListMonth(result);

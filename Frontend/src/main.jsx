@@ -10,6 +10,7 @@ import routes from './routes';
 import PrimaryLayout from './components/layout/PrimaryLayout';
 import AuthLayout from './components/layout/AuthLayout';
 import { ListItemBuyWrapper } from './components/hooks/listItemBuyContext';
+import { UserProvider } from './components/hooks/UserContext';
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -23,41 +24,43 @@ createRoot(document.getElementById('root')).render(
             }}
         >
             <ListItemBuyWrapper>
-                <BrowserRouter>
-                    <Routes>
-                        {routes.map((route, index) => {
-                            const Page = route.component;
+                <UserProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            {routes.map((route, index) => {
+                                const Page = route.component;
 
-                            if (route.layout === 'auth') {
+                                if (route.layout === 'auth') {
+                                    return (
+                                        <Route
+                                            key={index}
+                                            path={route.path}
+                                            element={
+                                                <AuthLayout>
+                                                    <Page />
+                                                </AuthLayout>
+                                            }
+                                        />
+                                    );
+                                }
+
+                                // Default layout
                                 return (
                                     <Route
                                         key={index}
                                         path={route.path}
                                         element={
-                                            <AuthLayout>
+                                            <PrimaryLayout>
                                                 <Page />
-                                            </AuthLayout>
+                                            </PrimaryLayout>
                                         }
                                     />
                                 );
-                            }
-
-                            // Default layout
-                            return (
-                                <Route
-                                    key={index}
-                                    path={route.path}
-                                    element={
-                                        <PrimaryLayout>
-                                            <Page />
-                                        </PrimaryLayout>
-                                    }
-                                />
-                            );
-                        })}
-                    </Routes>
-                    <ToastContainer autoClose={3000} />
-                </BrowserRouter>
+                            })}
+                        </Routes>
+                        <ToastContainer autoClose={3000} />
+                    </BrowserRouter>
+                </UserProvider>
             </ListItemBuyWrapper>
         </ConfigProvider>
     </StrictMode>,

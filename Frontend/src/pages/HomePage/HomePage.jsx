@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
 import Slider from '../../components/ui/Slider';
 import Category from './Category';
 import Banner from './Banner';
-import { addNewOrderAPI, getListBestSellerAPI } from '../../api/userAPI';
+import { getListBestSellerAPI } from '../../api/userAPI';
+import { FaHeadphones } from 'react-icons/fa6';
+import { GiMoneyStack } from 'react-icons/gi';
+import { MdOutlineWifiProtectedSetup } from 'react-icons/md';
+import { TbTruckDelivery } from 'react-icons/tb';
 
 const list = new Array(10).fill(0);
 
@@ -44,22 +48,31 @@ function HomePage() {
         fetchListBestSeller();
     }, []);
 
-    // useEffect(()=>{
-    //     const obj = {
-    //         {
-    //             'id':1,
-    //             'name4':'hoang trung anh',
-    //             'age':20
-    //         },{
-    //             'id':2,
-    //             'name4':'hoang trung anh',
-    //             'age':20
-    //         }
-    //     }
-    // },[])
-
     return (
         <div className="container mx-auto">
+            <div className="fixed left-0 z-50 w-[140px] animate-bounce">
+                <img
+                    src="https://nguyencongpc.vn/media/banner/27_Marbdc870976385c05318ea36291d1c6f4b.webp"
+                    alt="Left banner"
+                    className="h-auto w-full object-contain"
+                />
+            </div>
+
+            <div className="fixed right-0 z-50 w-[140px] animate-bounce">
+                <img
+                    src="https://nguyencongpc.vn/media/banner/27_Mar40eaff2956861bc5a66a363e56b8ef71.webp"
+                    alt="Right banner"
+                    className="h-auto w-full object-contain"
+                />
+            </div>
+            <div className="mb-6 h-[280px] w-full overflow-hidden rounded-xl">
+                <img
+                    src="https://nguyencongpc.vn/media/banner/17_Apre2a8f86ab726d7530efb2ff71335b32d.webp"
+                    alt=""
+                    className="w-fit bg-red-300 object-contain object-center"
+                />
+            </div>
+
             <Banner list={list} />
 
             <h1 className="mb-6 mt-12 border-l-4 border-primary pl-3 text-xl font-semibold text-textColor1">
@@ -91,11 +104,80 @@ function HomePage() {
                 <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
                     VGA - CARD MÀN HÌNH
                 </h1>
-                <Link to={'/list-product/vga'} className="border px-2 py-1">
+                <Link to={'/list-product/gpu'} className="border px-2 py-1">
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listGPU} />
+
+            <div className="mb-6 mt-12 flex items-center justify-between">
+                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
+                    MAINBOARD - BO MẠCH CHỦ
+                </h1>
+                <Link to={'/list-product/mainboard'} className="border px-2 py-1">
+                    Xem tất cả
+                </Link>
+            </div>
+            <Slider list={listMainboard} />
+
+            <div className="mb-6 mt-12 flex items-center justify-between">
+                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
+                    MÀN HÌNH
+                </h1>
+                <Link to={'/list-product/monitor'} className="border px-2 py-1">
+                    Xem tất cả
+                </Link>
+            </div>
+            <Slider list={listMonitor} />
+
+            <div className="mb-6 mt-12 flex items-center justify-between">
+                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
+                    LAPTOP
+                </h1>
+                <Link to={'/list-product/laptop'} className="border px-2 py-1">
+                    Xem tất cả
+                </Link>
+            </div>
+            <Slider list={listLaptop} />
+
+            <div className="mb-6 mt-12 flex items-center justify-between">
+                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">SSD</h1>
+                <Link to={'/list-product/laptop'} className="border px-2 py-1">
+                    Xem tất cả
+                </Link>
+            </div>
+            <Slider list={listSSD} />
+
+            <div className="mt-12 flex flex-wrap justify-between">
+                <div className="flex flex-shrink-0 items-center rounded-lg border border-[#b8b8b8] bg-white p-4">
+                    <TbTruckDelivery className="mr-3 mt-1 text-[50px]" />
+                    <div>
+                        <p className="text-sm font-semibold">CHÍNH SÁCH GIAO HÀNG</p>
+                        <p className="text-sm text-textColor2">Nhận và thanh toán tại nhà</p>
+                    </div>
+                </div>
+                <div className="flex flex-shrink-0 items-center rounded-lg border border-[#b8b8b8] bg-white p-4">
+                    <MdOutlineWifiProtectedSetup className="mr-3 mt-1 rotate-90 text-[46px]" />
+                    <div>
+                        <p className="text-sm font-semibold">CHÍNH SÁCH GIAO HÀNG</p>
+                        <p className="text-sm text-textColor2">Nhận và thanh toán tại nhà</p>
+                    </div>
+                </div>
+                <div className="flex flex-shrink-0 items-center rounded-lg border border-[#b8b8b8] bg-white p-4">
+                    <GiMoneyStack className="mr-3 mt-1 text-[50px]" />
+                    <div>
+                        <p className="text-sm font-semibold">CHÍNH SÁCH GIAO HÀNG</p>
+                        <p className="text-sm text-textColor2">Nhận và thanh toán tại nhà</p>
+                    </div>
+                </div>
+                <div className="flex flex-shrink-0 items-center rounded-lg border border-[#b8b8b8] bg-white p-4">
+                    <FaHeadphones className="mr-3 text-[40px]" />
+                    <div>
+                        <p className="text-sm font-semibold">CHÍNH SÁCH GIAO HÀNG</p>
+                        <p className="text-sm text-textColor2">Nhận và thanh toán tại nhà</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

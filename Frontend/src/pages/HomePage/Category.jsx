@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import cpu from '../../assets/images/category/cpu.png';
 import vga from '../../assets/images/category/vga.png';
 import main from '../../assets/images/category/main.png';
-import acessory from '../../assets/images/category/acessory.png';
 import laptop from '../../assets/images/category/laptop.png';
 import ssd from '../../assets/images/category/ssd.png';
 import monitor from '../../assets/images/category/monitor.png';
@@ -16,7 +15,6 @@ const categoryList = [
     { name: 'Mainboard - Bo Mạch Chủ', code: 'mainboard', image: main, size: 'p-1' },
     { name: 'Màn Hình Máy Tính', code: 'monitor', image: monitor, size: 'p-1' },
     { name: 'Laptop - Phụ Kiện', code: 'laptop', image: laptop, size: 'p-1' },
-    { name: 'Chuột, Phím, ...', code: 'more', image: acessory, size: 'p-3' },
     { name: 'Thiết Bị Lưu Trữ', code: 'ssd', image: ssd, size: 'p-3' },
 ];
 

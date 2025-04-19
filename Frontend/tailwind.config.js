@@ -21,6 +21,12 @@ export default {
                 'custom-soft': '0 2px 10px rgba(4, 41, 58, 0.2)',
                 'custom-strong': '0 10px 25px rgba(0, 0, 0, 0.3)',
             },
+            keyframes: {
+                bounce: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-3%)' },
+                },
+            },
         },
     },
     plugins: [tailwindcssAnimated],

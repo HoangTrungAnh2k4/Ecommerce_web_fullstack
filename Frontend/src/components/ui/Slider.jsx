@@ -17,8 +17,7 @@ function Slider({ list }) {
                                 image: pc,
                                 best_seller: item.best_seller,
                                 name: item.name,
-                                oldPrice: item.price,
-                                newPrice: item.price * (1 - item.discount / 100),
+                                price: item.price,
                                 discount: item.discount,
                                 sold_quantity: item.sold_quantity,
                             }}

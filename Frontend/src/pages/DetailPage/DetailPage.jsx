@@ -1,7 +1,7 @@
-import { FaPlus, FaMinus, FaHeadphones } from 'react-icons/fa6';
-import { GiTakeMyMoney, GiMoneyStack } from 'react-icons/gi';
+import { FaPlus, FaMinus, FaHeadphones, FaArrowsRotate } from 'react-icons/fa6';
+import { GiTakeMyMoney, GiMoneyStack, GiReceiveMoney } from 'react-icons/gi';
 import { TbTruckDelivery } from 'react-icons/tb';
-import { MdOutlineWifiProtectedSetup } from 'react-icons/md';
+import { MdOutlineWifiProtectedSetup, MdOutlineFiberNew } from 'react-icons/md';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -54,6 +54,18 @@ function DetailPage() {
         }
     };
 
+    const getRateData = async () => {
+        try {
+            const response = await getRateAPI(id);
+
+            if (response.data) {
+                setListRate(response.data);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
 
@@ -69,20 +81,9 @@ function DetailPage() {
             }
         };
 
-        const getRateData = async () => {
-            try {
-                const response = await getRateAPI(id);
-
-                if (response.data) {
-                    setListRate(response.data);
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        };
         getRateData();
         getEquipmentInfor();
-    }, []);
+    }, [id]);
 
     return (
         <div>
@@ -176,29 +177,35 @@ function DetailPage() {
                     </div>
 
                     <h3 className="mt-6 font-semibold text-textColor2">YÊN TÂM MUA HÀNG</h3>
-                    <div className="mt-4 flex flex-wrap gap-x-16 gap-y-4">
-                        <div className="flex items-center gap-2">
+                    <ul className="mt-4 flex flex-wrap gap-x-16 gap-y-4">
+                        <li className="flex w-1/2 items-center gap-2">
                             <GiTakeMyMoney className="text-2xl text-redColor" />
-                            <p className="text-sm text-textColor2">Cam kết giá tốt nhất thị trường</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <GiTakeMyMoney className="text-2xl text-redColor" />
-                            <p className="text-sm text-textColor2">Cam kết giá tốt nhất thị trường</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <GiTakeMyMoney className="text-2xl text-redColor" />
-                            <p className="text-sm text-textColor2">Cam kết giá tốt nhất thị trường</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <GiTakeMyMoney className="text-2xl text-redColor" />
-                            <p className="text-sm text-textColor2">Cam kết giá tốt nhất thị trường</p>
-                        </div>
-                    </div>
+                            <p className="text-sm text-textColor2">Cam kết giá tốt nhất thị trường.</p>
+                        </li>
+                        <li className="flex items-center gap-2">
+                            <MdOutlineFiberNew className="text-3xl text-redColor" />
+                            <p className="text-sm text-textColor2">Sản phẩm mới 100%.</p>
+                        </li>
+
+                        <li className="flex w-1/2 items-center gap-2">
+                            <GiReceiveMoney className="text-2xl text-redColor" />
+                            <p className="text-sm text-textColor2">Hỗ trợ trả góp - Thủ tục nhanh gọn.</p>
+                        </li>
+                        <li className="flex items-center gap-2">
+                            <FaArrowsRotate className="text-2xl text-redColor" />
+                            <p className="text-sm text-textColor2">Lỗi 1 đổi 1 ngay lập tức.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div className="mt-12 flex gap-4">
                 <div className="w-3/5">
-                    <Evaluation equipmenId={parseInt(id)} listRate={listRate} />
+                    <Evaluation
+                        equipmenId={parseInt(id)}
+                        listRate={listRate}
+                        setListRate={setListRate}
+                        getRateData={getRateData}
+                    />
                 </div>
                 <div className="w-2/5">
                     <Specification />

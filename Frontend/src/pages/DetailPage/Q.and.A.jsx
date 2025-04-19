@@ -7,7 +7,7 @@ import { deleteRateAPI } from './../../api/adminAPI';
 
 import { toast } from 'react-toastify';
 
-function QandA({ listRate }) {
+function QandA({ listRate, setListRate }) {
     const formatDate = (date) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         return new Date(date).toLocaleDateString('vi-VN', options);
@@ -16,7 +16,10 @@ function QandA({ listRate }) {
     const handleDeleteRate = async (id) => {
         try {
             await deleteRateAPI(id);
-            window.location.reload();
+
+            const updatedListRate = listRate.filter((rate) => rate.id !== id);
+            setListRate(updatedListRate);
+
             toast.success('Xóa đánh giá thành công');
         } catch (error) {
             console.error('Error deleting rate:', error);
@@ -50,7 +53,14 @@ function QandA({ listRate }) {
                             <div className="flex items-center justify-end gap-6">
                                 <button className="mt-2 flex items-center gap-1 text-green-600 hover:drop-shadow-2xl">
                                     <MdQuestionAnswer className="mt-[2px] text-xl" />
-                                    <span className="font-semibold">Trả lời</span>
+                                    <span
+                                        onClick={() => {
+                                            toast.warning('Coming soon!');
+                                        }}
+                                        className="font-semibold"
+                                    >
+                                        Trả lời
+                                    </span>
                                 </button>
                                 <button
                                     onClick={() => {

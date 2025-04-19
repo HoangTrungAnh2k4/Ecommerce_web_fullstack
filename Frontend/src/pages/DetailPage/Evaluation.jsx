@@ -7,7 +7,7 @@ import { getUserInforAPI, postRateAPI } from '../../api/userAPI';
 import { toast } from 'react-toastify';
 import { TbSend } from 'react-icons/tb';
 
-function Evaluation({ equipmenId, listRate }) {
+function Evaluation({ equipmenId, listRate, getRateData, setListRate }) {
     const [userInfor, setUserInfor] = useState({});
     const [avgRate, setAvgRate] = useState(0);
     const [listRateEachStar, setlistRateEachStar] = useState({});
@@ -15,7 +15,13 @@ function Evaluation({ equipmenId, listRate }) {
 
     const hanldeEvaluetion = async () => {
         try {
+            if (rate === 0) {
+                toast.warning('Vui lòng đánh giá sản phẩm');
+                return;
+            }
+
             const comment = document.querySelector('textarea').value;
+
             await postRateAPI({
                 value: rate,
                 userId: userInfor.id,
@@ -24,7 +30,11 @@ function Evaluation({ equipmenId, listRate }) {
                 comment: comment || 'Chưa có bình luận',
             });
 
+            getRateData();
             toast.success('Đánh giá thành công');
+
+            document.querySelector('textarea').value = '';
+            setRate(0);
         } catch (error) {
             console.log(error);
         }
@@ -154,7 +164,7 @@ function Evaluation({ equipmenId, listRate }) {
                 </div>
             </div>
 
-            <QandA listRate={listRate} />
+            <QandA listRate={listRate} setListRate={setListRate} />
         </div>
     );
 }
