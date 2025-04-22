@@ -18,3 +18,13 @@ export const authRegisterAPI = async (data) => {
 
     return instance.post(URL_API, data);
 };
+
+export const loginGoogleAPI = async (credential) => {
+    const URL_API = `${AUTH_URL}/login-google`;
+
+    const data = {
+        credential,
+    };
+
+    return instance.post(URL_API, data);
+};

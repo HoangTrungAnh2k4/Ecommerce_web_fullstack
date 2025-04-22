@@ -3,5 +3,12 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+    plugins: [react()],
+    server: {
+        headers: {
+            // Gỡ toàn bộ COOP và COEP nếu có
+            'Cross-Origin-Opener-Policy': '',
+            'Cross-Origin-Embedder-Policy': '',
+        },
+    },
+});

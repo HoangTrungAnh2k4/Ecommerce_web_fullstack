@@ -1,10 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaEye } from 'react-icons/fa';
 
 import { toast } from 'react-toastify';
 
-import zaloIcon from '../../assets/images/general/zalo-icon.png';
 import { authLoginAPI } from '../../api/authAPI';
 import { useUser } from '../../components/hooks/UserContext';
 
@@ -40,27 +38,7 @@ function LoginPage() {
     return (
         <div className="login__page flex h-screen items-center justify-center">
             <div className="w-[500px] rounded-xl bg-white px-10 py-6 shadow">
-                <h3 className="text-center text-xl font-semibold">Đăng nhập với</h3>
-                <div className="mt-12 flex justify-evenly">
-                    <div className="flex items-center gap-2">
-                        <FcGoogle className="size-[26px]" />
-                        <p className="text-lg text-textColor2">Google</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <FaFacebook className="size-[26px] text-[#4267B2]" />
-                        <p className="text-lg text-textColor2">Facebook</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <img src={zaloIcon} alt="" className="size-[24px]" />
-                        <p className="text-lg text-textColor2">Zalo</p>
-                    </div>
-                </div>
-                {/* separate line */}
-                <div className="mt-12 flex items-center px-12">
-                    <div className="w-full border-b-2 border-[#dbdbdb]"></div>
-                    <p className="mx-4 text-lg text-textColor2">Hoặc</p>
-                    <div className="w-full border-b-2 border-[#dbdbdb]"></div>
-                </div>
+                <h3 className="text-center text-xl font-semibold">Đăng nhập </h3>
 
                 {/* form input */}
                 <form onSubmit={handleLogin} className="mt-8">

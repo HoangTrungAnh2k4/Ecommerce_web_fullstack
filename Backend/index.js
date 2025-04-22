@@ -10,10 +10,11 @@ const port = process.env.PORT;
 
 app.use(
     cors({
-        origin: 'http://localhost:5173',
+        origin: process.env.CORS_FRONTEND,
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
         credentials: true,
+        exposedHeaders: ['Content-Length'],
     }),
 );
 

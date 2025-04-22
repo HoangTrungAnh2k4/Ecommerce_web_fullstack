@@ -1,6 +1,6 @@
 import instance from '../config/axios';
 
-const ADMIN_URL = import.meta.env.VITE_ADMIN_API_URL || 'http://localhost:3000';
+const ADMIN_URL = import.meta.env.VITE_ADMIN_API_URL ;
 
 export const addNewProductAPI = async (data) => {
     const URL_API = `${ADMIN_URL}/add-product`;

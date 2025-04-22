@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 const noImage =
     'https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 
+const hotIcon = 'https://nguyencongpc.vn/media/lib/10-01-2024/ncpc-icon-pro-hot-01-2024.png';
+
 function ItemCard({ item }) {
     const navigate = useNavigate();
 
@@ -21,11 +23,18 @@ function ItemCard({ item }) {
         }
     };
 
+    // Hàm random 30% cơ hội hiển thị hotIcon
+    function shouldShowHotIcon() {
+        return Math.random() < 0.4; // 30% xác suất
+    }
+
     return (
         <div
             id={item.id}
             className="card flex w-56 cursor-pointer select-none flex-col rounded-md border bg-white p-2 px-3 shadow-md"
         >
+            {shouldShowHotIcon() && <img src={hotIcon} alt="hot" className="absolute right-9 top-0 z-10 w-[20px]" />}
+
             <img
                 src={item?.image || noImage}
                 alt={item.name}

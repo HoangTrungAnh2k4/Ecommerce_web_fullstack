@@ -73,7 +73,7 @@ function ManageAccount() {
     }, []);
 
     return (
-        <div className="flex gap-20">
+        <div className="flex container gap-20">
             <div className="h-fit min-h-[300px] w-[300px] rounded-xl bg-white px-8 pt-4 shadow">
                 <h3 className="text-lg font-semibold">Quản lý tài khoản</h3>
                 <ul className="mt-6">
@@ -90,7 +90,7 @@ function ManageAccount() {
                 </ul>
             </div>
             {activeTab === 'account' && (
-                <div className="">
+                <div className="container">
                     <h3 className="text-lg font-semibold">Tài khoản</h3>
 
                     <div className="flex items-center gap-12">

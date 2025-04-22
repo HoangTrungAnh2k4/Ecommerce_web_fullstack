@@ -27,7 +27,7 @@ function QandA({ listRate, setListRate }) {
     };
 
     return (
-        <div className="rounded-lg border bg-white p-4 shadow">
+        <div className="rounded-lg border bg-[#f5f5f5] p-4 shadow">
             <h3 className="text-lg font-semibold">Bình luận và đánh giá</h3>
 
             {listRate &&
@@ -41,7 +41,7 @@ function QandA({ listRate, setListRate }) {
                                 <IoMdTime className="mt-[1px]" />
                             </div>
                         </div>
-                        <div className="mt-2 rounded-lg border bg-[#f5f5f5] p-4 text-sm">
+                        <div className="mt-2 rounded-lg border bg-white p-4 text-sm">
                             <div className="flex items-center gap-3">
                                 <p className="mr-6 font-semibold">Đánh giá: </p>
                                 <Rate value={item.value} disabled character={<FaStar className="text-lg" />} />

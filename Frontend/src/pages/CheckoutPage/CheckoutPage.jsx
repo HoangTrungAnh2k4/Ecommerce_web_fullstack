@@ -103,7 +103,15 @@ function CheckoutPage() {
     return (
         <div className="mx-auto flex gap-12">
             <div className="w-4/6 rounded-lg border px-6 py-4 shadow-lg">
-                <button className="ml-auto block border px-2 py-1 text-sm">Xóa giỏ hàng</button>
+                <button
+                    onClick={() => {
+                        setListCheckout([]);
+                        sessionStorage.setItem('listCheckout', JSON.stringify([]));
+                    }}
+                    className="ml-auto block border px-2 py-1 text-sm"
+                >
+                    Xóa giỏ hàng
+                </button>
                 <ul className="mt-4 max-h-[500px] overflow-auto">
                     {listCheckout.length != 0 &&
                         listCheckout?.map((item, index) => {
