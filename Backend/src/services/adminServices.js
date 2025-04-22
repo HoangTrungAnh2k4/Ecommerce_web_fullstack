@@ -6,20 +6,12 @@ const adminServices = {
             const { name, type, sold_quantity, price, discount, urlImage, best_seller, stock_quantity } = data;
 
             const sql1 =
-                'INSERT INTO equipment (name, type, sold_quantity, price, discount,best_seller, stock_quantity) VALUES ( ?, ?, ?, ?, ?, ?, ?)';
-            const params1 = [name, type, sold_quantity, price, discount, best_seller, stock_quantity];
+                'INSERT INTO equipment (name, type, sold_quantity, price, discount,best_seller, stock_quantity, image_url) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)';
+            const params1 = [name, type, sold_quantity, price, discount, best_seller, stock_quantity, urlImage];
 
             // thêm dữ liệu vào bảng equipment
             const [result1] = await pool.query(sql1, params1);
             const equipmentId = result1.insertId; // Lấy ID của thiết bị vừa tạo
-
-            if (urlImage && urlImage.length > 0) {
-                const sql2 = 'INSERT INTO image (equipment_id, url) VALUES ?';
-                const params2 = urlImage.map((url) => [equipmentId, url]); // Chuyển đổi thành mảng các mảng con
-
-                // thêm dữ liệu vào bảng image
-                await pool.query(sql2, [params2]);
-            }
 
             return {
                 status: 200,

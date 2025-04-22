@@ -2,7 +2,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa6';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useEffect, useState } from 'react';
-import { addNewOrderAPI } from '../../api/userAPI';
+import { addNewOrderAPI, updateEquipmentAPI } from '../../api/userAPI';
 import { toast } from 'react-toastify';
 
 const avatr =
@@ -34,6 +34,11 @@ function CheckoutPage() {
     };
 
     const handleCheckouted = async () => {
+        if (listCheckout.length === 0) {
+            toast.error('Không có sản phẩm nào trong giỏ hàng');
+            return;
+        }
+
         try {
             const data = {
                 listEquipment: listCheckout.map((item) => {
@@ -53,6 +58,8 @@ function CheckoutPage() {
             } else {
                 toast.error('Đặt hàng thất bại');
             }
+
+            updateEquipmentAPI(data); // Cập nhật số lượng sản phẩm đã bán
         } catch (error) {
             console.log(error);
             toast.error('Đặt hàng thất bại');

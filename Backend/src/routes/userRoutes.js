@@ -24,4 +24,6 @@ router.get('/get-order', userController.getOrder);
 
 router.get('/search', userController.search);
 
+router.put('/update-equipment', userController.updateEquipment);
+
 module.exports = router;

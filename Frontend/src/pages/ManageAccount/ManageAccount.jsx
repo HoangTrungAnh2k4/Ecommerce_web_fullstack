@@ -7,12 +7,12 @@ import { getEquipmentDetailAPI, getOrderAPI } from '../../api/userAPI';
 
 import RoleAdmin from './RoleAdmin';
 import RoleUSer from './RoleUser';
+import { useUser } from '../../components/hooks/UserContext';
 
 const avatr = 'https://nguyencongpc.vn/media/product/250-25318-custom.jpg';
 
 function ManageAccount() {
     const [activeTab, setActiveTab] = useState('account');
-    const [role, setRole] = useState('admin');
     const [orders, setOrders] = useState([]);
 
     const tabs = [
@@ -20,22 +20,8 @@ function ManageAccount() {
         { id: 'history', label: 'Lịch sử', icon: <BsMenuUp className="text-xl" /> },
     ];
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-
-        return `${hours}:${minutes} ${day}/${month}/${year} `;
-    };
-
-    const getTotalPrice = (items) => {
-        return items.reduce((acc, item) => {
-            return acc + item.price * item.quantity;
-        }, 0);
-    };
+    const { userInfo } = useUser();
+    console.log(userInfo);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -103,38 +89,44 @@ function ManageAccount() {
                     ))}
                 </ul>
             </div>
-            {activeTab === 'account' ? (
+            {activeTab === 'account' && (
                 <div className="">
                     <h3 className="text-lg font-semibold">Tài khoản</h3>
 
                     <div className="flex items-center gap-12">
                         <div className="flex flex-col">
-                            <label className="mb-2 mt-6 text-sm text-textColor2">Email</label>
+                            <label className="mb-2 mt-6 text-sm text-textColor2">Số điện thoại</label>
                             <input
                                 type="text"
                                 readOnly
-                                placeholder="Trunganh4002@gmail.com"
+                                placeholder={userInfo?.phoneNumber}
                                 className="h-fit rounded-lg border px-4 py-2 text-sm outline-none"
                             />
 
-                            <label className="mb-2 mt-6 text-sm text-textColor2">Tên hiển thị</label>
+                            <label className="mb-2 mt-6 text-sm text-textColor2">Họ tên</label>
                             <input
                                 type="text"
                                 readOnly
-                                placeholder="Hoàng Trung Anh"
+                                placeholder={userInfo?.name}
                                 className="h-fit rounded-lg border px-4 py-2 text-sm outline-none"
                             />
                         </div>
                         <div className="mt-8">
-                            <img src={pc} alt="" className="size-[115px] rounded-full border-2 border-gray-300" />
+                            <img
+                                src="https://cdn.kona-blue.com/upload/kona-blue_com/post/images/2024/09/18/457/avatar-mac-dinh-12.jpg"
+                                alt=""
+                                className="size-[115px] rounded-full border-2 border-gray-300"
+                            />
                         </div>
                     </div>
                 </div>
-            ) : role === 'admin' ? (
-                <RoleAdmin />
-            ) : (
-                <RoleUSer />
             )}
+            {activeTab === 'history' &&
+                (userInfo?.role === 'admin' ? (
+                    <RoleAdmin orders={orders} userInfo={userInfo} />
+                ) : (
+                    <RoleUSer orders={orders} userInfo={userInfo} />
+                ))}
         </div>
     );
 }

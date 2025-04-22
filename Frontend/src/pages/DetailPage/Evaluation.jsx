@@ -92,9 +92,9 @@ function Evaluation({ equipmenId, listRate, getRateData, setListRate }) {
                     <div className="flex w-2/5 flex-col items-center justify-center space-y-2 border-r">
                         <span className="text-3xl font-semibold">{isNaN(avgRate) ? '0' : avgRate.toFixed(1)} / 5</span>
                         <span className="flex gap-1">
-                            <Rate value={avgRate} allowHalf character={<FaStar className="text-2xl" />} />
+                            <Rate value={avgRate} allowHalf disabled character={<FaStar className="text-2xl" />} />
                         </span>
-                        <p className="">0 đánh giá và nhận xét</p>
+                        <p className="">{listRate.length} đánh giá và nhận xét</p>
                     </div>
                     {listRateEachStar && (
                         <ul className="w-3/5 space-y-2 px-4 py-3">

@@ -29,26 +29,7 @@ const userService = {
                 return { status: 404, message: 'Data not found' };
             }
 
-            const sql2 = `select equipment_id, url from image where equipment_id in (select id from equipment where type = ?)`;
-            const [imageInfor] = await pool.query(sql2, [type]);
-
-            const result = equipmentInfor.map((equipment) => {
-                const images = imageInfor
-                    .filter((image) => image.equipment_id === equipment.id)
-                    .map((image) => image.url);
-                return {
-                    id: equipment.id,
-                    name: equipment.name,
-                    price: equipment.price,
-                    sold_quantity: equipment.sold_quantity,
-                    type: equipment.type,
-                    best_seller: equipment.best_seller || false,
-                    discount: equipment.discount,
-                    images: images.length > 0 ? images : null,
-                };
-            });
-
-            return { status: 200, data: result };
+            return { status: 200, data: equipmentInfor };
         } catch (err) {
             console.error('Error:', err);
             if (err.code === 'ER_NO_SUCH_TABLE') {
@@ -61,33 +42,14 @@ const userService = {
 
     getListBestSeller: async (type) => {
         try {
-            const sql = `SELECT * FROM equipment WHERE type = ? AND best_seller = 1 ORDER BY sold_quantity limit 5`;
+            const sql = `SELECT * FROM equipment WHERE type = ? AND best_seller = 1 ORDER BY sold_quantity desc limit 10`;
             const [equipmentInfor] = await pool.query(sql, [type]);
 
             if (equipmentInfor.length === 0) {
                 return { status: 404, message: 'Data not found' };
             }
 
-            const sql2 = `select equipment_id, url from image where equipment_id in (select id from equipment where type = ? and best_seller = 1)`;
-            const [imageInfor] = await pool.query(sql2, [type]);
-
-            const result = equipmentInfor.map((equipment) => {
-                const images = imageInfor
-                    .filter((image) => image.equipment_id === equipment.id)
-                    .map((image) => image.url);
-                return {
-                    id: equipment.id,
-                    name: equipment.name,
-                    price: equipment.price,
-                    sold_quantity: equipment.sold_quantity,
-                    type: equipment.type,
-                    best_seller: equipment.best_seller || false,
-                    discount: equipment.discount,
-                    images: images.length > 0 ? images : null,
-                };
-            });
-
-            return { status: 200, data: result };
+            return { status: 200, data: equipmentInfor };
         } catch (error) {
             console.error('Error:', error);
             if (error.code === 'ER_NO_SUCH_TABLE') {
@@ -331,19 +293,19 @@ const userService = {
 
             // Query chính
             const query = `
-                            SELECT * FROM users
-                            WHERE name LIKE ? OR email LIKE ?
+                            SELECT * FROM equipment
+                            WHERE name LIKE ? 
                             LIMIT ? OFFSET ?
                         `;
 
             // Đếm tổng số bản ghi phù hợp
             const countQuery = `
-                                SELECT COUNT(*) as total FROM users
-                                WHERE name LIKE ? OR email LIKE ?
+                                SELECT COUNT(*) as total FROM equipment
+                                WHERE name LIKE ? 
                             `;
 
-            const [users] = await pool.query(query, [searchQuery, searchQuery, limit, offset]);
-            const [countResult] = await pool.query(countQuery, [searchQuery, searchQuery]);
+            const [equipment] = await pool.query(query, [searchQuery, limit, offset]);
+            const [countResult] = await pool.query(countQuery, [searchQuery]);
 
             const total = countResult[0].total;
             const totalPages = Math.ceil(total / limit);
@@ -351,11 +313,41 @@ const userService = {
             return {
                 status: 200,
                 data: {
-                    users,
+                    equipment,
                     total,
                     totalPages,
                 },
             };
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.code === 'ER_NO_SUCH_TABLE') {
+                throw new Error('TABLE_NOT_FOUND');
+            } else {
+                throw new Error('DATABASE_ERROR');
+            }
+        }
+    },
+
+    updateEquipment: async (listEquipment) => {
+        try {
+            const ids = listEquipment.map((eq) => eq.id).join(', ');
+            const caseSql = listEquipment.map((eq) => `WHEN ${eq.id} THEN ${eq.quantity}`).join('\n');
+
+            const sql = `
+                        UPDATE equipment
+                        SET sold_quantity = sold_quantity + CASE id
+                            ${caseSql}
+                        END
+                        WHERE id IN (${ids});
+                        `;
+
+            const [results] = await pool.query(sql);
+
+            if (results.affectedRows === 0) {
+                return { status: 404, message: 'Equipment not found' };
+            }
+
+            return { status: 200, message: 'Update equipment successfully' };
         } catch (error) {
             console.error('Error:', error);
             if (error.code === 'ER_NO_SUCH_TABLE') {

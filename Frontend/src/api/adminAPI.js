@@ -31,3 +31,5 @@ export const getMonthlyStatsAPI = async () => {
 
     return instance.get(URL_API);
 };
+
+

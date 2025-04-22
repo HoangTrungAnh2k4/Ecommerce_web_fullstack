@@ -22,6 +22,12 @@ export const getEquipmentDetailAPI = async (id) => {
     return instance.get(`${CLIENT_URL}/equipment-detail/${id}`);
 };
 
+export const updateEquipmentAPI = async (data) => {
+    const URL_API = `${CLIENT_URL}/update-equipment`;
+
+    return instance.put(URL_API, data);
+};
+
 // -------------------------------------------------
 //               User api infor
 // -------------------------------------------------
@@ -68,4 +74,14 @@ export const addNewOrderAPI = async (data) => {
 
 export const getOrderAPI = async () => {
     return instance.get(`${CLIENT_URL}/get-order`);
+};
+
+// -------------------------------------------------
+//              api about search
+// -------------------------------------------------
+
+export const searchAPI = async (search, page, limit) => {
+    return instance.get(`${CLIENT_URL}/search`, {
+        params: { search, page, limit },
+    });
 };

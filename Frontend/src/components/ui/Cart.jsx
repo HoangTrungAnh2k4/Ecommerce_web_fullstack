@@ -13,6 +13,10 @@ function Cart() {
     const [finalCart, setFinalCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
 
+    console.log('id item cart', idItemCart);
+    console.log('infor item cart', inforItemCart);
+    console.log('final cart', finalCart);
+
     const { setListItem } = useContext(ListItemBuyContext);
 
     const navigate = useNavigate();
@@ -35,7 +39,9 @@ function Cart() {
                 setIdItemCart(response.data);
             }
         } catch (error) {
-            console.log(error);
+            if (error.response.status === 404) {
+                setFinalCart([]);
+            }
         }
     };
 

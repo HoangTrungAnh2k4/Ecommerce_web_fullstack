@@ -1,3 +1,4 @@
+const { decodeBase64 } = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv');
 
@@ -10,7 +11,7 @@ const auth = (req, res, next) => {
             const decode = jwt.verify(token, process.env.JWT_SECRET);
             console.log(decode);
 
-            req.user = { phoneNumber: decode.phoneNumber, userInfor: decode.userInfor };
+            req.user = { userInfor: { ...decode.userInfor, phoneNumber: decode.phoneNumber } };
 
             next();
         } catch (error) {

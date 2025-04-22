@@ -49,8 +49,8 @@ function HomePage() {
     }, []);
 
     return (
-        <div className="container mx-auto">
-            <div className="fixed left-0 z-50 w-[140px] animate-bounce">
+        <div className="ư- container mx-auto">
+            <div className="fixed left-0 z-50 w-[120px] animate-bounce">
                 <img
                     src="https://nguyencongpc.vn/media/banner/27_Marbdc870976385c05318ea36291d1c6f4b.webp"
                     alt="Left banner"
@@ -58,7 +58,7 @@ function HomePage() {
                 />
             </div>
 
-            <div className="fixed right-0 z-50 w-[140px] animate-bounce">
+            <div className="fixed right-0 z-50 w-[120px] animate-bounce">
                 <img
                     src="https://nguyencongpc.vn/media/banner/27_Mar40eaff2956861bc5a66a363e56b8ef71.webp"
                     alt="Right banner"
@@ -73,76 +73,83 @@ function HomePage() {
                 />
             </div>
 
-            <Banner list={list} />
+            <Banner />
 
-            <h1 className="mb-6 mt-12 border-l-4 border-primary pl-3 text-xl font-semibold text-textColor1">
-                DANH MỤC NỔI BẬT
-            </h1>
+            <h1 className="mb-6 mt-12 text-xl font-semibold text-textColor1">DANH MỤC NỔI BẬT</h1>
             <Category className="" />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="block border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
-                    PC THEO NHU CẦU
-                </h1>
-                <Link to={'/list-product/pc'} className="block border px-2 py-1">
+                <h1 className="block pt-[2px] text-xl font-semibold text-textColor1">PC THEO NHU CẦU</h1>
+                <Link
+                    to={'/list-product/pc'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listPC} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
-                    CPU - BỘ VI XỬ LÝ
-                </h1>
-                <Link to={'/list-product/cpu'} className="border px-2 py-1">
+                <h1 className="pt-[2px] text-xl font-semibold text-textColor1">CPU - BỘ VI XỬ LÝ</h1>
+                <Link
+                    to={'/list-product/cpu'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listCPU} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
-                    VGA - CARD MÀN HÌNH
-                </h1>
-                <Link to={'/list-product/gpu'} className="border px-2 py-1">
+                <h1 className="pt-[2px] text-xl font-semibold text-textColor1">VGA - CARD MÀN HÌNH</h1>
+                <Link
+                    to={'/list-product/gpu'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listGPU} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
-                    MAINBOARD - BO MẠCH CHỦ
-                </h1>
-                <Link to={'/list-product/mainboard'} className="border px-2 py-1">
+                <h1 className="pt-[2px] text-xl font-semibold text-textColor1">MAINBOARD - BO MẠCH CHỦ</h1>
+                <Link
+                    to={'/list-product/mainboard'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listMainboard} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
-                    MÀN HÌNH
-                </h1>
-                <Link to={'/list-product/monitor'} className="border px-2 py-1">
+                <h1 className="pt-[2px] text-xl font-semibold text-textColor1">MÀN HÌNH</h1>
+                <Link
+                    to={'/list-product/monitor'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listMonitor} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">
-                    LAPTOP
-                </h1>
-                <Link to={'/list-product/laptop'} className="border px-2 py-1">
+                <h1 className="pt-[2px] text-xl font-semibold text-textColor1">LAPTOP</h1>
+                <Link
+                    to={'/list-product/laptop'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>
             <Slider list={listLaptop} />
 
             <div className="mb-6 mt-12 flex items-center justify-between">
-                <h1 className="border-l-4 border-primary pl-3 pt-[2px] text-xl font-semibold text-textColor1">SSD</h1>
-                <Link to={'/list-product/laptop'} className="border px-2 py-1">
+                <h1 className="pt-[2px] text-xl font-semibold text-textColor1">SSD</h1>
+                <Link
+                    to={'/list-product/ssd'}
+                    className="rounded-lg border px-2 py-1 hover:border-redColor hover:text-redColor"
+                >
                     Xem tất cả
                 </Link>
             </div>

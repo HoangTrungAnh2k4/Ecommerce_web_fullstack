@@ -5,6 +5,7 @@ import DetailPage from '../pages/DetailPage/DetailPage';
 import CheckoutPage from '../pages/CheckoutPage/CheckoutPage';
 import ListProductFlowType from '../pages/ListProductFlowType/ListProductFlowType';
 import ManageAccount from '../pages/ManageAccount/ManageAccount';
+import SearchResult from '../pages/SearchResult/SearchResult';
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
     {
         component: ManageAccount,
         path: '/manage-account',
+    },
+    {
+        component: SearchResult,
+        path: '/search-result',
     },
 ];
 

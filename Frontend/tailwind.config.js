@@ -10,8 +10,8 @@ export default {
                 all: 'all',
             },
             colors: {
-                primary: '#04293A',
-                second: '#4e8298',
+                primary: '#263b96',
+                second: '#6671a1',
                 textColor1: '#3a3a3a',
                 textColor2: '#575757',
                 background: '#e2e2e2',

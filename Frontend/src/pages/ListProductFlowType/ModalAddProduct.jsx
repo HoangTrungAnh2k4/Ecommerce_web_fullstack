@@ -22,6 +22,7 @@ const ModalAddProduct = ({ id, handleAddProduct, visible, setVisible }) => {
             best_seller: value.best_seller ? 1 : 0,
             sold_quantity: 0,
             stock_quantity: value.stock_quantity,
+            urlImage: value.imageUrl,
         };
 
         handleAddProduct(result);
@@ -87,6 +88,14 @@ const ModalAddProduct = ({ id, handleAddProduct, visible, setVisible }) => {
 
                         <Form.Item label="Gắn nhãn bán chạy" name="best_seller" valuePropName="checked">
                             <Switch />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Link ảnh"
+                            name="imageUrl"
+                            rules={[{ required: true, message: 'Thiếu thông tin' }]}
+                        >
+                            <Input />
                         </Form.Item>
 
                         <Form.Item label={null}>

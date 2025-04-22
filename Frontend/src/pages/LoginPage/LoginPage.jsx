@@ -6,9 +6,11 @@ import { toast } from 'react-toastify';
 
 import zaloIcon from '../../assets/images/general/zalo-icon.png';
 import { authLoginAPI } from '../../api/authAPI';
+import { useUser } from '../../components/hooks/UserContext';
 
 function LoginPage() {
     const navigate = useNavigate();
+    const { setUserInfo } = useUser();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -22,8 +24,7 @@ function LoginPage() {
 
             if (res) {
                 localStorage.setItem('access_token', res.data.access_token);
-
-                toast.success('Đăng nhập thành công');
+                setUserInfo(res.data.user);
 
                 navigate('/');
             }

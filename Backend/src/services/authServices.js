@@ -70,6 +70,7 @@ const authServices = {
                 status: 200,
                 data: {
                     access_token,
+                    user: { ...userInfor[0], phoneNumber },
                 },
             };
         } catch (error) {

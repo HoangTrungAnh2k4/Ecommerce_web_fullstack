@@ -1,20 +1,24 @@
 import { IoSearch, IoCart } from 'react-icons/io5';
 
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dropdown, Space } from 'antd';
 
-import logo from '../../assets/images/logo.webp';
+import logo from '../../assets/images/general/logo.png';
 import Cart from '../ui/Cart';
 
 function HeaderPage() {
-    const avatr =
-        'https://danhgiaxe.edu.vn/upload/2024/12/bo-suu-tap-hinh-anh-gai-k8-dep-quyen-ru-khien-ban-say-dam-4.webp';
+    const avatr = 'https://cdn.kona-blue.com/upload/kona-blue_com/post/images/2024/09/18/457/avatar-mac-dinh-12.jpg';
     const navigation = useNavigate();
 
     const handleLogout = () => {
         localStorage.clear('access_token');
 
         navigation('/login');
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        navigation(`/search-result?search=${e.target.value}`);
     };
 
     const items = [
@@ -36,12 +40,15 @@ function HeaderPage() {
     ];
 
     return (
-        <div className="relative z-50 flex items-center bg-background px-20 py-4">
+        <div className="relative z-50 flex items-center bg-background px-20 py-2">
             <Link to={'/'}>
-                <img src={logo} alt="" />
+                <img src={logo} alt="" className="w-[150px]" />
             </Link>
             <div className="mx-auto flex w-[40%] rounded-md bg-white">
                 <input
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleSearch(e);
+                    }}
                     type="text"
                     placeholder="Search Something..."
                     className="w-full rounded-md border-none bg-white px-4 py-3 text-sm text-gray-600 focus:outline-none focus:ring-0"

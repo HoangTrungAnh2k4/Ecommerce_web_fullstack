@@ -10,13 +10,17 @@ const adminControllers = {
             return res.status(400).json({ error: 'Invalid type parameter' });
         }
 
-        if (!name || !type || sold_quantity === undefined || price === undefined || discount === undefined) {
+        if (
+            !name ||
+            !type ||
+            sold_quantity === undefined ||
+            price === undefined ||
+            discount === undefined ||
+            !urlImage ||
+            best_seller === undefined
+        ) {
             return res.status(400).json({ error: 'All fields are required' });
         }
-
-        // if (!Array.isArray(urlImage) || urlImage.length === 0) {
-        //     return res.status(400).json({ error: 'urlImage must be an array and cannot be empty' });
-        // }
 
         try {
             const result = await adminServices.addProduct({
@@ -82,6 +86,10 @@ const adminControllers = {
             res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
         }
     },
+
+    updateEquipment: async (req, res) => {
+        
+    }
 };
 
 module.exports = adminControllers;
