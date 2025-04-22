@@ -1,10 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
-
-import zaloIcon from '../../assets/images/general/zalo-icon.png';
-
 import { authRegisterAPI } from '../../api/authAPI';
 import { toast } from 'react-toastify';
 
@@ -68,21 +63,6 @@ function RegisterPage() {
     return (
         <div className="login__page flex h-screen items-center justify-center">
             <div className="w-[500px] rounded-xl bg-white px-10 py-6 shadow">
-                {/* <h3 className="text-center text-xl font-semibold">Đăng ký với</h3>
-                <div className="mt-10 flex justify-evenly">
-                    <div className="flex items-center gap-2">
-                        <FcGoogle className="size-[26px]" />
-                        <p className="text-lg text-textColor2">Google</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <FaFacebook className="size-[26px] text-[#4267B2]" />
-                        <p className="text-lg text-textColor2">Facebook</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <img src={zaloIcon} alt="" className="size-[24px]" />
-                        <p className="text-lg text-textColor2">Zalo</p>
-                    </div>
-                </div> */}
                 <h3 className="text-center text-xl font-semibold">Đăng ký</h3>
 
                 {/* form input */}

@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { FaFacebook, FaEye } from 'react-icons/fa';
 
 import { toast } from 'react-toastify';
 

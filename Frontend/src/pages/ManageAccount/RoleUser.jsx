@@ -100,7 +100,7 @@ function RoleUSer() {
                                 {item.items.length != 0 &&
                                     item.items?.map((item2, index) => {
                                         return (
-                                            <li key={index} className="justify-between border-b-2 border-gray-200 py-6">
+                                            <div key={index} className="justify-between border-b-2 border-gray-200 py-6">
                                                 <div className="flex gap-4">
                                                     <img
                                                         src={avatr}
@@ -117,7 +117,7 @@ function RoleUSer() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </li>
+                                            </div>
                                         );
                                     })}
 

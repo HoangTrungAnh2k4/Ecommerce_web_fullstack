@@ -21,7 +21,6 @@ function ManageAccount() {
     ];
 
     const { userInfo } = useUser();
-    console.log(userInfo);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -73,7 +72,7 @@ function ManageAccount() {
     }, []);
 
     return (
-        <div className="flex container gap-20">
+        <div className="container flex gap-20">
             <div className="h-fit min-h-[300px] w-[300px] rounded-xl bg-white px-8 pt-4 shadow">
                 <h3 className="text-lg font-semibold">Quản lý tài khoản</h3>
                 <ul className="mt-6">
